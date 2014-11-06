@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BF2E76F1-508B-4B15-BE88-AA886650F223</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PMOS</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>98F3F040-1773-4672-B282-A6D345BDBD3C</key>
+		<string>https://github.com/PaMuOS/PMOS_OF.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PMOS/PMOS.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>98F3F040-1773-4672-B282-A6D345BDBD3C</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/PaMuOS/PMOS_OF.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>98F3F040-1773-4672-B282-A6D345BDBD3C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>98F3F040-1773-4672-B282-A6D345BDBD3C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PMOS_OF</string>
+		</dict>
+	</array>
+</dict>
+</plist>
