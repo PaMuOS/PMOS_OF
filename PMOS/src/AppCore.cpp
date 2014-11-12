@@ -20,36 +20,15 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
 
 	// double check where we are ...
 	cout << ofFilePath::getCurrentWorkingDirectory() << endl;
-
-	if(!pd.init(numOutChannels, numInChannels, sampleRate, ticksPerBuffer)) {
-		OF_EXIT_APP(1);
-	}
-
-	midiChan = 1; // midi channels are 1-16
-
-	// subscribe to receive source names
-	pd.subscribe("toOf");
-	pd.subscribe("env");
-
-    pd.addReceiver(*this);   // automatically receives from all subscribed sources
-	pd.ignore(*this, "env"); // don't receive from "env"
-	
-	pd.addMidiReceiver(*this);  // automatically receives from all channels
-
-	pd.addToSearchPath("pd/abs");
-
-	pd.start();
-    Patch patch = pd.openPatch("pd/somename.pd");
     
-    cout << patch << endl;
     
-//----------------------------------- KINECT -------------------------------------------
+    //-------------------------------KINECT-------------------------------------------
     
     kinect.init();
     kinect.open();
     kinect.setCameraTiltAngle(20);
     grayImage.allocate(kinect.width, kinect.height);
-
+    
     kinect1.init();
     kinect1.open();
     kinect1.setCameraTiltAngle(20);
@@ -64,20 +43,51 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     blobCenterY.resize(100);
     blobCenterYmap.resize(100);
     
-    ofSetFrameRate(15);
     
-//--------------------------------------------------------------------------------------
+    
+    //---------------------------------------------------------------------------------
+
+	if(!pd.init(numOutChannels, numInChannels, sampleRate, ticksPerBuffer)) {
+		OF_EXIT_APP(1);
+	}
+    Externals::setup();
+	midiChan = 1; // midi channels are 1-16
+
+	// subscribe to receive source names
+	pd.subscribe("toOf");
+	pd.subscribe("env");
+
+    pd.addReceiver(*this);   // automatically receives from all subscribed sources
+	pd.ignore(*this, "env"); // don't receive from "env"
+	
+	pd.addMidiReceiver(*this);  // automatically receives from all channels
+
+	pd.addToSearchPath("pd/abs");
+
+	pd.start();
+    for(int i = 0; i<PERSON_NUM; i++){
+        patches[i] = pd.openPatch("pd/patch.pd");
+    }
+    
+    cout << patch << endl;
+    
 
     sender.setup(HOST, PORT);
     
     allPipes = new ofPipe*[TUBE_NUM]; // an array of pointers for the objects
-
-	message = "loading data.xml";
-	if( XML.loadFile("data.xml") ){
-		message = "data.xml loaded!";
-	}else{
-		message = "unable to load data.xml check data/ folder";
-	}
+    persons = new ofPerson*[PERSON_NUM];
+    
+    //the string is printed at the top of the app
+    //to give the user some feedback
+    message = "loading data.xml";
+    
+    //we load our data file
+    
+    if( XML.loadFile("data.xml") ){
+        message = "data.xml loaded!";
+    }else{
+        message = "unable to load data.xml check data/ folder";
+    }
     
     XML.pushTag("document");
     
@@ -85,24 +95,38 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         
         XML.pushTag("tube",i);
         
-        float x = XML.getValue("y",0.0) * 5 + ofGetWidth() / 2;
-        float y = XML.getValue("x",0.0) * 5 + ofGetHeight() / 2;
+        float cX = ofGetWidth()/2;
+        float cY = ofGetHeight()/2;
+        
+        float x = XML.getValue("y",0.0);
+        float y = XML.getValue("x",0.0);
+        
+        float angle = ofDegToRad(-20);
+        // rotate
+        float rX = (x*cos(angle) - y*sin(angle));
+        float rY = (x*sin(angle) + y*cos(angle));
+        
+        // map to the of window size
+        x = (rX * 5.5 + ofGetWidth() / 2) - 50;
+        y = rY * 5.5 + ofGetHeight() / 2;
+        
+        
         float radius = XML.getValue("diameter",0.0 ) / 2.4;
         float length = XML.getValue("length",0.0 );
         float height= XML.getValue("height",0.0);
         float frequency = 342 / ((length*2)/100);
         int idNum = XML.getValue("num",0);
         int element = XML.getValue("element",0 );
-        allPipes[i] = new ofPipe(x,y,radius,length,height,frequency, idNum, element);
+        int open = XML.getValue("oc",0 );
+        allPipes[i] = new ofPipe(x,y,radius,length,height,frequency, idNum, element, open);
         
         XML.popTag();
     }
-    persons = new ofPerson*[PERSON_NUM];
     
     for(int i = 0; i<PERSON_NUM; i++){
-        patches[i] = pd.openPatch("pd/somename.pd");
-        persons[i]= new ofPerson(0,0,0.0, i);
+        persons[i]= new ofPerson(0.0,0.0,0.0, i);
     }
+
     
 }
 
@@ -194,16 +218,24 @@ void AppCore::draw() {
             
             if(dist<allPipes[i]->radius){
                 persons[u]->frequency=allPipes[i]->frequency;
+                persons[u]->diameter=allPipes[i]->radius;
+                persons[u]->height=allPipes[i]->height;
+                persons[u]->length=allPipes[i]->length;
+                persons[u]->openClosed=allPipes[i]->openClosed;
                 allPipes[i]->isHit=true;
             }
         }
         
-        pd.sendFloat(patches[u].dollarZeroStr()+"-fromOf",persons[u]->frequency);
+       // pd.sendFloat(patches[u].dollarZeroStr()+"-fromOf",persons[u]->frequency);
     }
     if(currentInput == 0){
         for(int i=0; i<PERSON_NUM; i++)
         {
-            pd.sendFloat(patches[i].dollarZeroStr()+"-fromOf", 0);
+            pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
+            pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
+            pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
+            pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*2.4);
+
         }
     }
     

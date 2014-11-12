@@ -1,0 +1,16 @@
+#N canvas 1255 431 632 315 10;
+#X declare -lib cyclone;
+#X text 15 35 Arcsine(x);
+#X obj 198 84 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 198 160 0 0 0 0 - - -;
+#X floatatom 93 160 0 0 0 0 - - -;
+#X floatatom 93 84 0 0 0 0 - - -;
+#X text 264 117 optional arg;
+#X obj 405 27 import cyclone;
+#X obj 93 115 asin;
+#X obj 198 115 asin 0.5;
+#X connect 1 0 8 0;
+#X connect 4 0 7 0;
+#X connect 7 0 3 0;
+#X connect 8 0 2 0;

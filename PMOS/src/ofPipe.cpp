@@ -8,7 +8,7 @@
 
 #include "ofPipe.h"
 
-ofPipe::ofPipe(float _x, float _y, float _radius, float _length, float _height, float _frequency, int _idNum, int _element)
+ofPipe::ofPipe(float _x, float _y, float _radius, float _length, float _height, float _frequency, int _idNum, int _element, int _open)
 {
     x = _x;
     y = _y;
@@ -19,6 +19,7 @@ ofPipe::ofPipe(float _x, float _y, float _radius, float _length, float _height, 
     idNum = _idNum;
     element = _element;
     isHit = false;
+    openClosed = _open;
 }
 
 void ofPipe::update(){

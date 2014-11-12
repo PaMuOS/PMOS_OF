@@ -1,0 +1,56 @@
+#N canvas 140 28 732 643 10;
+#X text 8 -56 ADSR Envelope;
+#X obj 248 409 vline~;
+#X obj 217 296 pack f f f f;
+#X obj 190 52 vsl 30 60 0 300 0 1 empty empty empty 0 -9 0 10 -262144
+-1 -1 2200 1;
+#X obj 265 53 vsl 30 60 0 500 0 1 empty empty empty 0 -9 0 10 -262144
+-1 -1 4900 1;
+#X obj 343 54 vsl 30 60 0 1 0 1 empty empty empty 0 -9 0 10 -262144
+-1 -1 3700 1;
+#X obj 425 52 vsl 30 60 0 2000 0 1 empty empty empty 0 -9 0 10 -262144
+-1 -1 5900 1;
+#X msg 215 334 1 \$2 \, \$4 \$3 \$2;
+#X msg 362 316 0 \$2;
+#X floatatom 190 123 5 0 0 0 - - -;
+#X floatatom 265 123 5 0 0 0 - - -;
+#X floatatom 343 124 5 0 0 0 - - -;
+#X floatatom 424 121 5 0 0 0 - - -;
+#X obj 362 291 pack f f;
+#X obj 69 224 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 215 272 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 67 164 change;
+#X obj 69 196 sel 0;
+#X text 247 139 decay (ms);
+#X text 165 140 attack (ms);
+#X text 316 139 sustain (0-1);
+#X text 402 137 release (ms);
+#X obj 183 -58 loadbang;
+#X obj 252 455 outlet~;
+#X obj 66 128 inlet;
+#X connect 1 0 23 0;
+#X connect 2 0 7 0;
+#X connect 3 0 9 0;
+#X connect 4 0 10 0;
+#X connect 5 0 11 0;
+#X connect 6 0 12 0;
+#X connect 7 0 1 0;
+#X connect 8 0 1 0;
+#X connect 9 0 2 1;
+#X connect 10 0 2 2;
+#X connect 11 0 2 3;
+#X connect 12 0 13 1;
+#X connect 13 0 8 0;
+#X connect 14 0 13 0;
+#X connect 15 0 2 0;
+#X connect 16 0 17 0;
+#X connect 17 0 14 0;
+#X connect 17 1 15 0;
+#X connect 22 0 3 0;
+#X connect 22 0 4 0;
+#X connect 22 0 5 0;
+#X connect 22 0 6 0;
+#X connect 24 0 16 0;
+#X coords 0 -1 1 1 400 150 1 120 20;

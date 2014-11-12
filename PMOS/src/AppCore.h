@@ -18,14 +18,14 @@
 #include "ofxXmlSettings.h"
 #include "ofxOsc.h"
 #include "ofPerson.h"
-
+#include "Externals.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
 
 #define HOST "localhost"
 #define PORT 12345
 #define TUBE_NUM 565
-#define PERSON_NUM 25
+#define PERSON_NUM 10
 
 // a namespace for the Pd types
 using namespace pd;
@@ -78,9 +78,10 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         ofxPd pd;
 		vector<float> scopeArray;
 		
-        vector<Patch> instances;
+    vector<Patch> instances;
+    Patch patch;
     
-        Patch patches[PERSON_NUM];
+    Patch patches[PERSON_NUM];
 		
 		int midiChan;
     

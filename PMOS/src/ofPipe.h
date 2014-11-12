@@ -29,9 +29,10 @@ public: // place public functions or variables declarations here
     int idNum;      // number of the pipe
     int element;    // element number
     bool isHit;    // is it triggered
+    int openClosed;
     
     // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
-    ofPipe(float _x, float _y, float _radius, float _length, float _height, float _frequency, int _idNum, int _element);
+    ofPipe(float _x, float _y, float _radius, float _length, float _height, float _frequency, int _idNum, int _element, int _open);
     
 private: // place private functions or variables declarations here
     
