@@ -3,3 +3,6 @@
 
 # mac apps
 *.app*
+
+*.xcuserstate
+*.xccheckout
