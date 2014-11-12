@@ -10,29 +10,29 @@
 	<string>PMOS</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F44D6173FE30FD80D3C3D249BF8CA0F65F8EF1B5</key>
+		<key>98F3F040-1773-4672-B282-A6D345BDBD3C</key>
 		<string>https://github.com/PaMuOS/PMOS_OF.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>PMOS/PMOS.xcodeproj</string>
+	<string>PMOS/PMOS.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F44D6173FE30FD80D3C3D249BF8CA0F65F8EF1B5</key>
+		<key>98F3F040-1773-4672-B282-A6D345BDBD3C</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/PaMuOS/PMOS_OF.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>111</integer>
+	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F44D6173FE30FD80D3C3D249BF8CA0F65F8EF1B5</string>
+	<string>98F3F040-1773-4672-B282-A6D345BDBD3C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F44D6173FE30FD80D3C3D249BF8CA0F65F8EF1B5</string>
+			<string>98F3F040-1773-4672-B282-A6D345BDBD3C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>PMOS_OF</string>
 		</dict>

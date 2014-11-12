@@ -16,9 +16,6 @@ ofPerson::ofPerson(float _x, float _y, float _freq, int _idNum)
     idNum = _idNum;
     
     frequency = _freq;
-    height = 0;
-    diameter =0;
-    length = 0;
     
     isHere = true;
 }

@@ -207,6 +207,7 @@ static void *def_ls_new(t_symbol *s, int ac, Atom *av)
 }
 
 /* define-loudspeakers message integrated into vbap object */
+#ifdef VBAP_OBJECT
 void vbap_def_ls(t_def_ls *x, t_symbol *s, int ac, Atom *av)
 {
 	initContent_ls_directions(x,ac,av); // Initialize object internal data from a ls-directions list
@@ -215,7 +216,7 @@ void vbap_def_ls(t_def_ls *x, t_symbol *s, int ac, Atom *av)
     
 	def_ls_bang(x); // calculate and send matrix to vbap
 }
-
+#endif
 /** Initialize the object content from parameters : ls-directions list */
 static void initContent_ls_directions(t_def_ls *x,int ac,Atom*av)
 {

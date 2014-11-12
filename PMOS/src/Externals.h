@@ -13,8 +13,8 @@
 extern "C" {
     void pink_tilde_setup();
     void spigot_tilde_setup();
-    //void vbap_setup();
-    //void define_loudspeakers_setup();
+    void vbap_setup();
+    
 }
 
 
@@ -27,8 +27,8 @@ public:
     static void setup(){
         pink_tilde_setup();
         spigot_tilde_setup();
-        //vbap_setup();
-        //define_loudspeakers_setup();
+        vbap_setup();
+        
     }
 };
 

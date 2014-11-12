@@ -93,7 +93,7 @@ void vbap_setup(void)
 
 	// define_loudspeaker messages
     class_addmethod(vbap_class, (t_method)vbap_def_ls, gensym("define-loudspeakers"), A_GIMME, 0);
-    //class_addmethod(vbap_class, (t_method)vbap_def_ls, gensym("define_loudspeakers"), A_GIMME, 0);
+    class_addmethod(vbap_class, (t_method)vbap_def_ls, gensym("define_loudspeakers"), A_GIMME, 0);
     class_addmethod(vbap_class, (t_method)def_ls_read_directions, gensym("ls-directions"), A_GIMME, 0);
     class_addmethod(vbap_class, (t_method)def_ls_read_triplets, gensym("ls-triplets"), A_GIMME, 0);
 
@@ -117,7 +117,7 @@ void main(void)
 
 	// define_loudspeaker messages
 	addmess((method)vbap_def_ls, "define-loudspeakers", A_GIMME, 0);
-	//addmess((method)vbap_def_ls, "define_loudspeakers", A_GIMME, 0);
+	addmess((method)vbap_def_ls, "define_loudspeakers", A_GIMME, 0);
 	addmess((method)def_ls_read_directions, "ls-directions", A_GIMME, 0);	
 	addmess((method)def_ls_read_triplets, "ls-triplets", A_GIMME, 0);
 

@@ -24,8 +24,8 @@
 
 #define HOST "localhost"
 #define PORT 12345
-#define TUBE_NUM 565
-#define PERSON_NUM 10
+#define TUBE_NUM 571
+#define PERSON_NUM 25
 
 // a namespace for the Pd types
 using namespace pd;
@@ -78,10 +78,9 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         ofxPd pd;
 		vector<float> scopeArray;
 		
-    vector<Patch> instances;
-    Patch patch;
+        vector<Patch> instances;
     
-    Patch patches[PERSON_NUM];
+        Patch patches[PERSON_NUM];
 		
 		int midiChan;
     
@@ -112,7 +111,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     int screenHeight = 800;
     int maxInput = 30;
     int currentInput;
-    int thresholdVal = 230;
+    int thresholdVal = 100;
 
     
     vector<ofxCvBlob> blobs;
