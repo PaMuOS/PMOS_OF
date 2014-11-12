@@ -13,3 +13,4 @@ XCode
 #XCode 4
 xcuserdata
 *.xcworkspace
+*.xccheckout
