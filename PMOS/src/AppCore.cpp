@@ -194,11 +194,7 @@ void AppCore::draw() {
         ofSetColor(255);
     }
     
-    
-    ofSetColor(255,0,0);
-    ofLine(130, 0, 130, screenHeight);
-    ofLine(screenWidth-100, 0, screenWidth-100, screenHeight);
-    
+   
     ////////////////////////////////////////////////////////////////////////////////////////
     
     if(currentInput>PERSON_NUM){
