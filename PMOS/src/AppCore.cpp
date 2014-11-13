@@ -240,7 +240,7 @@ void AppCore::draw() {
         oscMessage.addFloatArg(tubeID); // tubeID
         oscMessage.addFloatArg(persons[u]->frequency); // frequency
         
-        pd.sendFloat(patches[u].dollarZeroStr()+"-fromOf",persons[u]->frequency);
+        
         b.addMessage(oscMessage);
         oscMessage.clear();
     }
