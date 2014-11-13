@@ -25,7 +25,7 @@
 #define HOST "localhost"
 #define PORT 12345
 #define TUBE_NUM 571
-#define PERSON_NUM 25
+#define PERSON_NUM 1
 
 // a namespace for the Pd types
 using namespace pd;
@@ -125,4 +125,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     private:
         ofPipe** allPipes;
         ofPerson** persons;
+    
+    float timeStamp;
+    int tubeID;
 };

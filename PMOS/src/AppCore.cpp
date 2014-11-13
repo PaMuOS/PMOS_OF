@@ -193,24 +193,28 @@ void AppCore::draw() {
         ofDrawBitmapString(ofToString(i), blobCenterXmap[i], blobCenterYmap[i]);
         ofSetColor(255);
     }
-    
-   
+
     ////////////////////////////////////////////////////////////////////////////////////////
+
+    ofxOscBundle b;
+    timeStamp = ofGetUnixTime();
     
     if(currentInput>PERSON_NUM){
         currentInput=PERSON_NUM;
     }
-    
-    //for(int i = 0; i<PERSON_NUM; i++){
-    //    persons[i]->update();
-    //}
-    
     
     for(int u = 0; u<currentInput; u++){
 
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
         
+        ofxOscMessage oscMessage;
+        oscMessage.setAddress("/messages/" + ofToString(u));
+        oscMessage.addFloatArg(timeStamp); // timestamp
+        oscMessage.addFloatArg(u); // userID ???
+        oscMessage.addFloatArg(persons[u]->x); // x
+        oscMessage.addFloatArg(persons[u]->y); // y
+        tubeID = 0;
   
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
@@ -222,6 +226,8 @@ void AppCore::draw() {
                 persons[u]->length=allPipes[i]->length;
                 persons[u]->openClosed=allPipes[i]->openClosed;
                 allPipes[i]->isHit=true;
+                
+                tubeID = allPipes[i]->idNum;
             }
             else{
             
@@ -234,6 +240,13 @@ void AppCore::draw() {
             
             }
         }
+        
+        oscMessage.addFloatArg(tubeID); // tubeID
+        oscMessage.addFloatArg(persons[u]->frequency); // frequency
+        
+        pd.sendFloat(patches[u].dollarZeroStr()+"-fromOf",persons[u]->frequency);
+        b.addMessage(oscMessage);
+        oscMessage.clear();
     }
     
     if(currentInput==0){
@@ -248,8 +261,9 @@ void AppCore::draw() {
         }
     }
      
+    // sending OSC
+    sender.sendBundle(b);
     
-        
     for (int i = 0; i < PERSON_NUM; i++){
         
         if(currentInput!=0){
