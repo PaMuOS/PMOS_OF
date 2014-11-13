@@ -207,6 +207,11 @@ void AppCore::draw() {
 
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
+        persons[u]->frequency=0;
+        persons[u]->diameter=0;
+        persons[u]->height=0;
+        persons[u]->length=0;
+        persons[u]->openClosed=0;
         
         ofxOscMessage oscMessage;
         oscMessage.setAddress("/messages/" + ofToString(u));
@@ -229,16 +234,7 @@ void AppCore::draw() {
                 
                 tubeID = allPipes[i]->idNum;
             }
-            else{
-            
-                persons[u]->frequency=0;
-                persons[u]->diameter=0;
-                persons[u]->height=0;
-                persons[u]->length=0;
-                persons[u]->openClosed=0;
-                allPipes[i]->isHit=false;
-            
-            }
+           
         }
         
         oscMessage.addFloatArg(tubeID); // tubeID
