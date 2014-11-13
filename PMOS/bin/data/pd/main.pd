@@ -1,33 +1,38 @@
 #N canvas 351 268 613 537 10;
 #X obj -6 212 synth;
 #X obj -3 266 audio_output;
-#X obj 67 214 synth;
-#X obj 78 267 audio_output;
+#X obj 132 267 audio_output;
 #X obj 38 -3 r \$0-frequency;
-#X obj 37 44 change;
-#X obj 38 19 sel 0;
-#X obj 37 71 counter 0 1;
-#X obj 37 101 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 40 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 187 59 change;
+#X obj 198 40 sel 0;
+#X obj 187 86 counter 0 1;
+#X obj 187 116 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 190 180 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 62 121 * -1;
-#X obj 62 142 + 1;
-#X obj 62 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 212 136 * -1;
+#X obj 212 157 + 1;
+#X obj 212 180 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 8 238 spigot~;
-#X obj 78 237 spigot~;
-#X connect 0 0 13 0;
-#X connect 2 0 14 0;
+#X obj 132 237 spigot~;
+#X obj 121 214 synth;
+#X obj 135 0 r \$0-diameter;
+#X obj 226 0 r \$0-height;
+#X obj 306 0 r \$0-openClosed;
+#X connect 0 0 12 0;
+#X connect 0 0 1 0;
+#X connect 3 0 0 0;
 #X connect 4 0 6 0;
-#X connect 5 0 7 0;
-#X connect 6 1 5 0;
+#X connect 5 1 4 0;
+#X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
-#X connect 9 0 13 1;
 #X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 1;
-#X connect 13 0 1 0;
-#X connect 14 0 3 0;
+#X connect 12 0 1 0;
+#X connect 13 0 2 0;
+#X connect 14 0 13 0;
+#X connect 15 0 0 1;
+#X connect 16 0 0 2;
+#X connect 17 0 0 3;
