@@ -29,7 +29,7 @@ public: // place public functions or variables declarations here
     
     
     float frequency;
-    int idNum;      //
+    int idNum;      
     float height;
     float diameter;
     float length;

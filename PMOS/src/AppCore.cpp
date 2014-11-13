@@ -120,7 +120,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     }
     
     for(int i = 0; i<PERSON_NUM; i++){
-        patches[i]=pd.openPatch("pd/PMOS_Synth_workcopy(2nd_ver).pd");
+        patches[i]=pd.openPatch("pd/main.pd");
         persons[i]= new ofPerson(0.0,0.0,0.0, i);
     }
     
@@ -134,7 +134,7 @@ void AppCore::update() {
     kinect1.update();
     
     
-    if(kinect.isFrameNew() /*&& kinect1.isFrameNew()*/){
+    if(kinect.isFrameNew() && kinect1.isFrameNew()){
         
         grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
         grayImage1.setFromPixels(kinect1.getDepthPixels(), kinect1.width, kinect1.height);
@@ -203,26 +203,16 @@ void AppCore::draw() {
         currentInput=PERSON_NUM;
     }
     
-    /*if(currentInput==0){
-        for (int i = 0; i < PERSON_NUM; i++){
-        persons[i]->frequency = 0;
-        persons[i]->diameter=0;
-        persons[i]->height=0;
-        persons[i]->length=0;
-        persons[i]->openClosed=0;
-        }
-    }*/
+    //for(int i = 0; i<PERSON_NUM; i++){
+    //    persons[i]->update();
+    //}
+    
     
     for(int u = 0; u<currentInput; u++){
 
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
-        persons[u]->frequency = 0;
-        persons[u]->diameter=0;
-        persons[u]->height=0;
-        persons[u]->length=0;
-        persons[u]->openClosed=0;
-        
+  
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
             allPipes[i]->isHit=false;
@@ -234,19 +224,46 @@ void AppCore::draw() {
                 persons[u]->openClosed=allPipes[i]->openClosed;
                 allPipes[i]->isHit=true;
             }
+            else{
             
-        }
-        
-        for (int i = 0; i < PERSON_NUM; i++){
-            persons[i]->update();
+                persons[u]->frequency=0;
+                persons[u]->diameter=0;
+                persons[u]->height=0;
+                persons[u]->length=0;
+                persons[u]->openClosed=0;
+                allPipes[i]->isHit=false;
             
-            pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
-            pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
-            pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
-            pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
-            
+            }
         }
     }
+    
+    if(currentInput==0){
+        for (int i = 0; i < PERSON_NUM; i++){
+            persons[i]->frequency = 0;
+            persons[i]->diameter=0;
+            persons[i]->height=0;
+            persons[i]->length=0;
+            persons[i]->openClosed=0;
+            persons[i]->x=0;
+            persons[i]->y=0;
+        }
+    }
+     
+    
+        
+    for (int i = 0; i < PERSON_NUM; i++){
+        persons[i]->update();
+        if(currentInput!=0){
+            pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
+        }else{
+            pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",0);
+        }
+        pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
+        pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
+        pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
+            
+    }
+    
 //--------------------------------------------------------------
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->draw();
@@ -260,10 +277,7 @@ void AppCore::draw() {
     for(int i=0; i<currentInput; i++){
         ofDrawBitmapString(info, blobCenterXmap[i]+6,blobCenterYmap[i]);
     }
-    
-    
 }
-
 
 void AppCore::kinectInput(float _x, float _y){
 
@@ -277,8 +291,7 @@ void AppCore::playTone(int pitch) {
 }
 
 void AppCore::mouseMoved(int x, int y ){
-
-    
+   
 }
 
 //--------------------------------------------------------------

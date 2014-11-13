@@ -14,6 +14,7 @@ extern "C" {
     void pink_tilde_setup();
     void spigot_tilde_setup();
     void vbap_setup();
+    void expr_setup();
     
 }
 
@@ -28,6 +29,7 @@ public:
         pink_tilde_setup();
         spigot_tilde_setup();
         vbap_setup();
+        expr_setup();
         
     }
 };

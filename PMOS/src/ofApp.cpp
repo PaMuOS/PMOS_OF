@@ -14,11 +14,14 @@ void ofApp::setup(){
     int numInputs = 1;
 #endif
     
+    soundStream.listDevices();
+    
+    soundStream.setDeviceID(1);
 	// setup OF sound stream
-	ofSoundStreamSetup(2, numInputs, this, 44100, ofxPd::blockSize()*ticksPerBuffer, 3);
+    soundStream.setup(this,8,numInputs,44100,ofxPd::blockSize()*ticksPerBuffer,16);
     
 	// setup the app core
-	core.setup(2, numInputs, 44100, ticksPerBuffer);
+	core.setup(8, numInputs, 44100, ticksPerBuffer);
 
 }
 

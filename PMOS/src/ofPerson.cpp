@@ -21,8 +21,8 @@ ofPerson::ofPerson(float _x, float _y, float _freq, int _idNum)
 }
 
 void ofPerson::update(){
-    x += idNum/2;
-    y += idNum/2;
+   // x += idNum/2;
+   // y += idNum/2;
     
     if(x>ofGetWidth()){
         x=0;

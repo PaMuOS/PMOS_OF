@@ -30,6 +30,9 @@
 		211078491A13781B001836F6 /* rvbap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2110783F1A13774D001836F6 /* rvbap.c */; };
 		2110784A1A13781B001836F6 /* vbap.c in Sources */ = {isa = PBXBuildFile; fileRef = 211078401A13774D001836F6 /* vbap.c */; };
 		21A059755481CC0BF969FD2D /* keep_alive.c in Sources */ = {isa = PBXBuildFile; fileRef = A3528DDFF05B00283552455D /* keep_alive.c */; };
+		21C3DEB81A14B5AB00ED0F2D /* vexp.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C3DEB41A14B54800ED0F2D /* vexp.c */; };
+		21C3DEB91A14B5AB00ED0F2D /* vexp_fun.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C3DEB61A14B54800ED0F2D /* vexp_fun.c */; };
+		21C3DEBA1A14B5AB00ED0F2D /* vexp_if.c in Sources */ = {isa = PBXBuildFile; fileRef = 21C3DEB71A14B54800ED0F2D /* vexp_if.c */; };
 		21DE514257119B92345B0900 /* g_graph.c in Sources */ = {isa = PBXBuildFile; fileRef = A2BDF137E2A9EFF3694B25B4 /* g_graph.c */; };
 		250A95BA26587BE85DB0A353 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE9C7160245B19131DAE6128 /* ofxCvColorImage.cpp */; };
 		255A7B680DC81E543C875794 /* usb_libusb10.c in Sources */ = {isa = PBXBuildFile; fileRef = 28F9707464BA3FF98E05096C /* usb_libusb10.c */; };
@@ -236,6 +239,13 @@
 		211078401A13774D001836F6 /* vbap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vbap.c; sourceTree = "<group>"; };
 		211078411A13774D001836F6 /* vbap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vbap.h; sourceTree = "<group>"; };
 		211078421A1377B2001836F6 /* Externals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Externals.h; sourceTree = "<group>"; };
+		21C3DEB11A14B54800ED0F2D /* fts_to_pd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fts_to_pd.h; sourceTree = "<group>"; };
+		21C3DEB21A14B54800ED0F2D /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		21C3DEB31A14B54800ED0F2D /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		21C3DEB41A14B54800ED0F2D /* vexp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vexp.c; sourceTree = "<group>"; };
+		21C3DEB51A14B54800ED0F2D /* vexp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vexp.h; sourceTree = "<group>"; };
+		21C3DEB61A14B54800ED0F2D /* vexp_fun.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vexp_fun.c; sourceTree = "<group>"; };
+		21C3DEB71A14B54800ED0F2D /* vexp_if.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vexp_if.c; sourceTree = "<group>"; };
 		23640F57DF6C4BB6BFC5DA4C /* PacketListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PacketListener.h; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/PacketListener.h; sourceTree = SOURCE_ROOT; };
 		241AAF7769D555E4ECD57E17 /* cameras.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cameras.h; path = ../../../addons/ofxKinect/libs/libfreenect/src/cameras.h; sourceTree = SOURCE_ROOT; };
 		28774F114D90A84348384CBA /* m_sched.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = m_sched.c; path = "../../../addons/ofxPd/libs/libpd/pure-data/src/m_sched.c"; sourceTree = SOURCE_ROOT; };
@@ -662,6 +672,7 @@
 		211075721A13774C001836F6 /* externals */ = {
 			isa = PBXGroup;
 			children = (
+				21C3DEB01A14B54800ED0F2D /* expr */,
 				2110782F1A13774D001836F6 /* pink */,
 				211078371A13774D001836F6 /* spigot */,
 				211078391A13774D001836F6 /* vbap */,
@@ -704,6 +715,20 @@
 				211078411A13774D001836F6 /* vbap.h */,
 			);
 			path = vbap;
+			sourceTree = "<group>";
+		};
+		21C3DEB01A14B54800ED0F2D /* expr */ = {
+			isa = PBXGroup;
+			children = (
+				21C3DEB11A14B54800ED0F2D /* fts_to_pd.h */,
+				21C3DEB21A14B54800ED0F2D /* LICENSE.txt */,
+				21C3DEB31A14B54800ED0F2D /* README.txt */,
+				21C3DEB41A14B54800ED0F2D /* vexp.c */,
+				21C3DEB51A14B54800ED0F2D /* vexp.h */,
+				21C3DEB61A14B54800ED0F2D /* vexp_fun.c */,
+				21C3DEB71A14B54800ED0F2D /* vexp_if.c */,
+			);
+			path = expr;
 			sourceTree = "<group>";
 		};
 		27699C56EB9BEF85DDCEFD14 /* libpd */ = {
@@ -1506,6 +1531,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21C3DEB81A14B5AB00ED0F2D /* vexp.c in Sources */,
+				21C3DEB91A14B5AB00ED0F2D /* vexp_fun.c in Sources */,
+				21C3DEBA1A14B5AB00ED0F2D /* vexp_if.c in Sources */,
 				211078431A13781B001836F6 /* loud.c in Sources */,
 				211078441A13781B001836F6 /* pink.c in Sources */,
 				211078451A13781B001836F6 /* shared.c in Sources */,

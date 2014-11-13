@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
     
     AppCore core;
 		
+    ofSoundStream soundStream;
     
 
 };
