@@ -107,8 +107,6 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     
     void kinectInput(float _x, float _y);
     
-    int screenWidth = 1200;
-    int screenHeight = 800;
     int maxInput = 30;
     int currentInput;
     int thresholdVal = 100;

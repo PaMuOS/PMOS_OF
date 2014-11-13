@@ -107,6 +107,8 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         y = rY * 5.5 + ofGetHeight() / 2;
         
         
+        
+        
         float radius = XML.getValue("diameter",0.0 ) / 2.4;
         float length = XML.getValue("length",0.0 );
         float height= XML.getValue("height",0.0);
@@ -181,8 +183,8 @@ void AppCore::draw() {
         blobs[i] = contourFinder.blobs.at(i);
         blobCenterX[i] = blobs[i].centroid.x;
         blobCenterY[i] = blobs[i].centroid.y;
-        blobCenterXmap[i] = ofMap(blobCenterX[i], 0, kinect.height*2, 130, screenWidth-100);
-        blobCenterYmap[i] = ofMap(blobCenterY[i], 0, kinect.width, 0, screenHeight);
+        blobCenterXmap[i] = ofMap(blobCenterX[i], 0, kinect.height*2, 0, ofGetWidth());
+        blobCenterYmap[i] = ofMap(blobCenterY[i], 0, kinect.width, 0, ofGetHeight());
         
         // draw center of blobs
         ofSetColor(255, 255, 0);
@@ -212,6 +214,7 @@ void AppCore::draw() {
 
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
+        
   
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
@@ -252,7 +255,7 @@ void AppCore::draw() {
     
         
     for (int i = 0; i < PERSON_NUM; i++){
-        persons[i]->update();
+        
         if(currentInput!=0){
             pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         }else{
@@ -261,6 +264,10 @@ void AppCore::draw() {
         pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
         pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
+        
+        
+        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->x,0,ofGetWidth(),0,1));
+        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->y,0,ofGetWidth(),0,1));
             
     }
     

@@ -27,14 +27,13 @@ public: // place public functions or variables declarations here
     float x;        // position
     float y;
     
-    
     float frequency;
     int idNum;      
     float height;
     float diameter;
     float length;
     int openClosed;
-
+    
     
     bool isHere;    // is it triggered
     
