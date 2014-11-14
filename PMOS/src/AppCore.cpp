@@ -17,10 +17,11 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
 	ofSetFrameRate(25);
 	ofSetVerticalSync(true);
 	//ofSetLogLevel(OF_LOG_VERBOSE);
-
+    
 	// double check where we are ...
 	cout << ofFilePath::getCurrentWorkingDirectory() << endl;
 
+    //----------------------------------- PD START-------------------------------------------
 	if(!pd.init(numOutChannels, numInChannels, sampleRate, ticksPerBuffer)) {
 		OF_EXIT_APP(1);
 	}
@@ -40,10 +41,10 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
 
 	pd.start();
     //Patch patch = pd.openPatch("pd/somename.pd");
-    
     //cout << patch << endl;
+    //----------------------------------- PD END-------------------------------------------
     
-//----------------------------------- KINECT -------------------------------------------
+    //----------------------------------- KINECT START -------------------------------------------
     
     kinect.init();
     kinect.open();
@@ -52,7 +53,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
 
     kinect1.init();
     kinect1.open();
-    kinect1.setCameraTiltAngle(20);
+    kinect1.setCameraTiltAngle(0);
     grayImage1.allocate(kinect1.width, kinect1.height);
     
     bothKinects.allocate(kinect.height*2, kinect.width);
@@ -64,10 +65,9 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     blobCenterY.resize(100);
     blobCenterYmap.resize(100);
     
-    //ofSetFrameRate(15);
-    
-//--------------------------------------------------------------------------------------
+    //----------------------------------- KINECT END -------------------------------------------
 
+    // Setup OSC Sender
     sender.setup(HOST, PORT);
     
     allPipes = new ofPipe*[TUBE_NUM]; // an array of pointers for the objects
@@ -111,14 +111,16 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         int idNum = XML.getValue("num",0);
         int element = XML.getValue("element",0 );
         int open = XML.getValue("oc",0 );
+        
         allPipes[i] = new ofPipe(x,y,radius,length,height,frequency, idNum, element, open);
         
         XML.popTag();
     }
     
+    // load the PD patches and create the people
     for(int i = 0; i<PERSON_NUM; i++){
-        patches[i]=pd.openPatch("pd/main.pd");
-        persons[i]= new ofPerson(0.0,0.0,0.0, i);
+        patches[i] = pd.openPatch("pd/main.pd");
+        persons[i] = new ofPerson(0.0,0.0,0.0, i);
     }
     
 }
@@ -129,7 +131,6 @@ void AppCore::update() {
     ofBackground(150);
     kinect.update();
     kinect1.update();
-    
     
     if(kinect.isFrameNew() && kinect1.isFrameNew()){
         
@@ -157,19 +158,7 @@ void AppCore::update() {
     grayImage1.flagImageChanged();
     
     currentInput = contourFinder.nBlobs;
-	
-//--------------------------------------------------------------------------------------
-    for (int i = 0; i < TUBE_NUM; i++){
-        allPipes[i]->update();
-    }
-}
-
-//--------------------------------------------------------------
-void AppCore::draw() {
     
-    bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
-    contourFinder.draw(0, 0, 960, 640);
-
     for(int i = 0; i < currentInput; i++) {
         blobs[i] = contourFinder.blobs.at(i);
         blobCenterX[i] = blobs[i].centroid.x;
@@ -177,16 +166,10 @@ void AppCore::draw() {
         blobCenterXmap[i] = ofMap(blobCenterX[i], 0, kinect.height*2, 0, ofGetWidth());
         blobCenterYmap[i] = ofMap(blobCenterY[i], 0, kinect.width, 0, ofGetHeight());
         
-        // draw center of blobs
-        ofSetColor(255, 255, 0);
-        ofFill();
-        ofCircle(blobCenterXmap[i], blobCenterYmap[i], 3);
-        ofDrawBitmapString(ofToString(i), blobCenterXmap[i], blobCenterYmap[i]);
-        ofSetColor(255);
-    }
-
+        }
+    
     ////////////////////////////////////////////////////////////////////////////////////////
-
+    
     ofxOscBundle b;
     timeStamp = ofGetUnixTime();
     
@@ -195,14 +178,14 @@ void AppCore::draw() {
     }
     
     for(int u = 0; u<currentInput; u++){
-
+        
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
         persons[u]->frequency=0;
-        persons[u]->diameter=0;
-        persons[u]->height=0;
-        persons[u]->length=0;
-        persons[u]->openClosed=0;
+        //persons[u]->diameter=0;   //no need to set these to 0
+        //persons[u]->height=0;
+        //persons[u]->length=0;
+        //persons[u]->openClosed=0;
         
         ofxOscMessage oscMessage;
         oscMessage.setAddress("/messages/" + ofToString(u));
@@ -211,7 +194,7 @@ void AppCore::draw() {
         oscMessage.addFloatArg(persons[u]->x); // x
         oscMessage.addFloatArg(persons[u]->y); // y
         tubeID = 0;
-  
+        
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
             allPipes[i]->isHit=false;
@@ -225,7 +208,7 @@ void AppCore::draw() {
                 
                 tubeID = allPipes[i]->idNum;
             }
-           
+            
         }
         
         oscMessage.addFloatArg(tubeID); // tubeID
@@ -245,12 +228,9 @@ void AppCore::draw() {
             persons[i]->y=0;
         }
     }
-     
-    // sending OSC
-    sender.sendBundle(b);
     
     for (int i = 0; i < PERSON_NUM; i++){
-        
+    
         if(currentInput!=0){
             pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         }else{
@@ -260,16 +240,27 @@ void AppCore::draw() {
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
         pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
         
-        // send the coordinates for vbap
-//        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->x,0,ofGetWidth(),0,1));
-//        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->y,0,ofGetHeight(),0,1));
-        
-        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(ofGetAppPtr()->mouseX,0,ofGetWidth(),1,0));
-        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(ofGetAppPtr()->mouseY,0,ofGetHeight(),1,0));
+        // vbap
+        // OF screen botom-left is top-left for the vbap speaker placement
+        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->x,0,ofGetWidth(),1,0));
+        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->y,0,ofGetHeight(),1,0));
         
     }
-    
+	
+    //--------------------------------------------------------------------------------------
+    for (int i = 0; i < TUBE_NUM; i++){
+        allPipes[i]->update();
+    }
+    // sending OSC
+    sender.sendBundle(b);
+}
+
 //--------------------------------------------------------------
+void AppCore::draw() {
+    
+    bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
+    contourFinder.draw(0, 0, ofGetWidth(), ofGetHeight());
+    
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->draw();
     }
@@ -278,6 +269,12 @@ void AppCore::draw() {
     ofDrawBitmapString(message, 20,20);
 
     for(int i=0; i<currentInput; i++){
+        // draw center of blobs
+        ofSetColor(255, 255, 0);
+        ofFill();
+        ofCircle(blobCenterXmap[i], blobCenterYmap[i], 3);
+        ofDrawBitmapString(ofToString(i), blobCenterXmap[i], blobCenterYmap[i]);
+        ofSetColor(255);
         ofDrawBitmapString(info, blobCenterXmap[i]+6,blobCenterYmap[i]);
     }
 }
