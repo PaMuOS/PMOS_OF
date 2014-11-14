@@ -145,7 +145,7 @@ void AppCore::update() {
         GrayPixel.rotate90(3);
         
         GrayPixel1 = grayImage1.getPixelsRef();
-        GrayPixel1.rotate90(1);
+        GrayPixel1.rotate90(3);
         
         for(int i=0; i<640; i++){
             memcpy(combinedVideo + (i*960), GrayPixel.getPixels()+(i*480), 480);
