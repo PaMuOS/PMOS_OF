@@ -142,7 +142,7 @@ void AppCore::update() {
         grayImage1.setFromPixels(kinect1.getDepthPixels(), kinect1.width, kinect1.height);
         
         GrayPixel = grayImage.getPixelsRef();
-        GrayPixel.rotate90(1);
+        GrayPixel.rotate90(3);
         
         GrayPixel1 = grayImage1.getPixelsRef();
         GrayPixel1.rotate90(1);
