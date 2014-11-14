@@ -91,25 +91,20 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         
         XML.pushTag("tube",i);
         
-        float cX = ofGetWidth()/2;
-        float cY = ofGetHeight()/2;
-        
         float x = XML.getValue("y",0.0);
         float y = XML.getValue("x",0.0);
         
-        float angle = ofDegToRad(-20);
         // rotate
+        float angle = ofDegToRad(-20);
         float rX = (x*cos(angle) - y*sin(angle));
         float rY = (x*sin(angle) + y*cos(angle));
         
         // map to the of window size
-        x = (rX * 5.5 + ofGetWidth() / 2) - 50;
-        y = rY * 5.5 + ofGetHeight() / 2;
+        float mult = 6;
+        x = (rX * mult + ofGetWidth() / 2) - 50;
+        y = rY * mult + ofGetHeight() / 2;
         
-        
-        
-        
-        float radius = XML.getValue("diameter",0.0 ) / 2.4;
+        float radius = XML.getValue("diameter",0.0 ) / 2;
         float length = XML.getValue("length",0.0 );
         float height= XML.getValue("height",0.0);
         float frequency = 342 / ((length*2)/100);
@@ -172,13 +167,9 @@ void AppCore::update() {
 //--------------------------------------------------------------
 void AppCore::draw() {
     
-    ofPushMatrix();
-    ofScale(0.25, 0.25);
-    bothKinects.draw(0,0);
+    bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
     contourFinder.draw(0, 0, 960, 640);
-    ofPopMatrix();
-    //grayImage.draw(0,0);
-    //kinect.draw(10, 10, 400, 300);
+
     for(int i = 0; i < currentInput; i++) {
         blobs[i] = contourFinder.blobs.at(i);
         blobCenterX[i] = blobs[i].centroid.x;
@@ -239,8 +230,6 @@ void AppCore::draw() {
         
         oscMessage.addFloatArg(tubeID); // tubeID
         oscMessage.addFloatArg(persons[u]->frequency); // frequency
-        
-        
         b.addMessage(oscMessage);
         oscMessage.clear();
     }
@@ -271,10 +260,13 @@ void AppCore::draw() {
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
         pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
         
+        // send the coordinates for vbap
+//        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->x,0,ofGetWidth(),0,1));
+//        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->y,0,ofGetHeight(),0,1));
         
-        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->x,0,ofGetWidth(),0,1));
-        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->y,0,ofGetWidth(),0,1));
-            
+        pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(ofGetAppPtr()->mouseX,0,ofGetWidth(),1,0));
+        pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(ofGetAppPtr()->mouseY,0,ofGetHeight(),1,0));
+        
     }
     
 //--------------------------------------------------------------
@@ -284,8 +276,6 @@ void AppCore::draw() {
     
     ofSetColor(0, 0, 0);
     ofDrawBitmapString(message, 20,20);
-    ofDrawBitmapString("Sending the frequency as OSC message to port " + ofToString(PORT), 600,40);
-    ofDrawBitmapString("frequency:  " + ofToString(sendFreq), 600,60);
 
     for(int i=0; i<currentInput; i++){
         ofDrawBitmapString(info, blobCenterXmap[i]+6,blobCenterYmap[i]);
