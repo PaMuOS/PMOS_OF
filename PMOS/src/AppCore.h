@@ -25,7 +25,7 @@
 #define HOST "localhost"
 #define PORT 12345
 #define TUBE_NUM 571
-#define PERSON_NUM 1
+#define PERSON_NUM 5
 
 // a namespace for the Pd types
 using namespace pd;
@@ -76,10 +76,8 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         void mouseMoved(int x, int y);
 		
         ofxPd pd;
-		vector<float> scopeArray;
-		
-        vector<Patch> instances;
-    
+		//vector<float> scopeArray;
+        //vector<Patch> instances;
         Patch patches[PERSON_NUM];
 		
 		int midiChan;
@@ -91,41 +89,35 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     
         ofxOscSender sender;
     
-    //-------------------------------------------------------
+        //-------------------------------------------------------
+        
+        ofxKinect kinect;
+        ofxKinect kinect1;
+        
+        ofxCvGrayscaleImage grayImage;
+        ofxCvGrayscaleImage grayImage1;
+        ofxCvGrayscaleImage bothKinects;
+        ofxCvContourFinder contourFinder;
+        
+        unsigned char* combinedVideo;
+        ofPixels GrayPixel;
+        ofPixels GrayPixel1; 
+        
+        int maxInput = 30;
+        int currentInput;
+        int thresholdVal = 100;
+   
+        vector<ofxCvBlob> blobs;
+        vector<float> blobCenterX;
+        vector<float> blobCenterXmap;
+        vector<float> blobCenterY;
+        vector<float> blobCenterYmap;
+        float timeStamp;
+        int tubeID;
     
-    ofxKinect kinect;
-    ofxKinect kinect1;
-    
-    ofxCvGrayscaleImage grayImage;
-    ofxCvGrayscaleImage grayImage1;
-    ofxCvGrayscaleImage bothKinects;
-    ofxCvContourFinder contourFinder;
-    
-    unsigned char* combinedVideo;
-    ofPixels GrayPixel;
-    ofPixels GrayPixel1; 
-    
-    void kinectInput(float _x, float _y);
-    
-    int maxInput = 30;
-    int currentInput;
-    int thresholdVal = 100;
-
-    
-    vector<ofxCvBlob> blobs;
-    vector<float> blobCenterX;
-    vector<float> blobCenterXmap;
-    vector<float> blobCenterY;
-    vector<float> blobCenterYmap;
-    
-
-    
-    //-------------------------------------------------------
+        //-------------------------------------------------------
     
     private:
         ofPipe** allPipes;
         ofPerson** persons;
-    
-    float timeStamp;
-    int tubeID;
 };

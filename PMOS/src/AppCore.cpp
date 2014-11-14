@@ -205,7 +205,6 @@ void AppCore::update() {
                 persons[u]->length=allPipes[i]->length;
                 persons[u]->openClosed=allPipes[i]->openClosed;
                 allPipes[i]->isHit=true;
-                
                 tubeID = allPipes[i]->idNum;
             }
             
@@ -230,29 +229,25 @@ void AppCore::update() {
     }
     
     for (int i = 0; i < PERSON_NUM; i++){
-    
-        if(currentInput!=0){
-            pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
-        }else{
-            pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",0);
-        }
+        pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
         pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
-        
         // vbap
         // OF screen botom-left is top-left for the vbap speaker placement
         pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->x,0,ofGetWidth(),1,0));
         pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->y,0,ofGetHeight(),1,0));
-        
     }
-	
-    //--------------------------------------------------------------------------------------
+    
+    // sending OSC
+    sender.sendBundle(b);
+    
+	/*
+    // this is not doing anything at the moment
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->update();
     }
-    // sending OSC
-    sender.sendBundle(b);
+    */
 }
 
 //--------------------------------------------------------------
@@ -279,9 +274,6 @@ void AppCore::draw() {
     }
 }
 
-void AppCore::kinectInput(float _x, float _y){
-
-}
 //--------------------------------------------------------------
 void AppCore::exit() {}
 
