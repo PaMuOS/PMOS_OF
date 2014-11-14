@@ -16,7 +16,7 @@ void ofApp::setup(){
     
     soundStream.listDevices();
     
-    soundStream.setDeviceID(1);
+    soundStream.setDeviceID(8);
 	// setup OF sound stream
     soundStream.setup(this,8,numInputs,44100,ofxPd::blockSize()*ticksPerBuffer,16);
     
