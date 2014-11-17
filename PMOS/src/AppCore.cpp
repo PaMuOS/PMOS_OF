@@ -14,7 +14,7 @@
 void AppCore::setup(const int numOutChannels, const int numInChannels,
                     const int sampleRate, const int ticksPerBuffer) {
 
-	ofSetFrameRate(25);
+	ofSetFrameRate(30);
 	ofSetVerticalSync(true);
 	//ofSetLogLevel(OF_LOG_VERBOSE);
     
@@ -45,14 +45,14 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     //----------------------------------- PD END-------------------------------------------
     
     //----------------------------------- KINECT START -------------------------------------------
-    
+    kinect.listDevices();
     kinect.init();
-    kinect.open();
+    kinect.open("A00365917784047A");
     kinect.setCameraTiltAngle(0);
     grayImage.allocate(kinect.width, kinect.height);
 
     kinect1.init();
-    kinect1.open();
+    kinect1.open("A00364A11700045A");
     kinect1.setCameraTiltAngle(0);
     grayImage1.allocate(kinect1.width, kinect1.height);
     
@@ -104,7 +104,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         x = (rX * mult + ofGetWidth() / 2) - 50;
         y = rY * mult + ofGetHeight() / 2;
         
-        float radius = XML.getValue("diameter",0.0 ) / 2;
+        float radius = XML.getValue("diameter",0.0 ) / 1.8;
         float length = XML.getValue("length",0.0 );
         float height= XML.getValue("height",0.0);
         float frequency = 342 / ((length*2)/100);
@@ -122,13 +122,14 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         patches[i] = pd.openPatch("pd/main.pd");
         persons[i] = new ofPerson(0.0,0.0,0.0, i);
     }
-    
+    // load a separate patch for the mouse
+    mousePatch = pd.openPatch("pd/main.pd");
+    mPerson = new ofPerson(0.0,0.0,0.0,0);
 }
 
 //--------------------------------------------------------------
 void AppCore::update() {
     
-    ofBackground(150);
     kinect.update();
     kinect1.update();
     
@@ -150,7 +151,7 @@ void AppCore::update() {
         }
         
         bothKinects.threshold(thresholdVal);
-        contourFinder.findContours(bothKinects, 300, 25000, maxInput, false);
+        contourFinder.findContours(bothKinects, 300, 50000, maxInput, false);
         
     }
     
@@ -171,12 +172,41 @@ void AppCore::update() {
     ////////////////////////////////////////////////////////////////////////////////////////
     
     ofxOscBundle b;
-    timeStamp = ofGetUnixTime();
+    timeStamp = ofGetUnixTime()*1.0;
+    //timeStamp = ofGetTimestampString():
     
     if(currentInput>PERSON_NUM){
         currentInput=PERSON_NUM;
     }
     
+    // reset the pipes and check the mouse
+    mPerson->pipeID = 0;
+    mPerson->frequency=0;
+    ofxOscMessage m;
+    m.setAddress("/mouse");
+    m.addFloatArg(timeStamp); // timestamp
+    m.addFloatArg(0); // userID ???
+    m.addFloatArg(mPerson->x); // x
+    m.addFloatArg(mPerson->y); // y
+    for (int i = 0; i < TUBE_NUM; i++){
+        allPipes[i]->isHit=false;
+        float mouseDist = ofDist(allPipes[i]->x,allPipes[i]->y,mPerson->x,mPerson->y);
+        if(mouseDist<allPipes[i]->radius){
+            mPerson->frequency=allPipes[i]->frequency;
+            mPerson->diameter=allPipes[i]->radius;
+            mPerson->height=allPipes[i]->height;
+            mPerson->length=allPipes[i]->length;
+            mPerson->openClosed=allPipes[i]->openClosed;
+            mPerson->pipeID = allPipes[i]->idNum;
+            allPipes[i]->isHit=true;
+        }
+    }
+    m.addFloatArg(mPerson->pipeID); // tubeID
+    m.addFloatArg(mPerson->frequency); // frequency
+    b.addMessage(m);
+    m.clear();
+    
+    // check if the tracked people are hitting the pipes
     for(int u = 0; u<currentInput; u++){
         
         persons[u]->x=blobCenterXmap[u];
@@ -193,24 +223,21 @@ void AppCore::update() {
         oscMessage.addFloatArg(u); // userID ???
         oscMessage.addFloatArg(persons[u]->x); // x
         oscMessage.addFloatArg(persons[u]->y); // y
-        tubeID = 0;
         
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
-            allPipes[i]->isHit=false;
             if(dist<allPipes[i]->radius){
                 persons[u]->frequency=allPipes[i]->frequency;
                 persons[u]->diameter=allPipes[i]->radius;
                 persons[u]->height=allPipes[i]->height;
                 persons[u]->length=allPipes[i]->length;
                 persons[u]->openClosed=allPipes[i]->openClosed;
+                persons[u]->pipeID=allPipes[i]->idNum;
                 allPipes[i]->isHit=true;
-                tubeID = allPipes[i]->idNum;
             }
-            
         }
         
-        oscMessage.addFloatArg(tubeID); // tubeID
+        oscMessage.addFloatArg(persons[u]->pipeID); // tubeID
         oscMessage.addFloatArg(persons[u]->frequency); // frequency
         b.addMessage(oscMessage);
         oscMessage.clear();
@@ -234,13 +261,23 @@ void AppCore::update() {
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
         pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
         // vbap
-        // OF screen botom-left is top-left for the vbap speaker placement
+        // OF screen bottom-left is top-left for the vbap speaker placement
         pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->x,0,ofGetWidth(),1,0));
         pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->y,0,ofGetHeight(),1,0));
     }
     
     // sending OSC
     sender.sendBundle(b);
+    
+    // mouse patch
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-frequency",mPerson->frequency);
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-openClosed",mPerson->openClosed);
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-height",mPerson->height-mPerson->length);
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-diameter",mPerson->diameter*3.4);
+    // vbap
+    // OF screen bottom-left is top-left for the vbap speaker placement
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-y",ofMap(mPerson->x,0,ofGetWidth(),1,0));
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-x",ofMap(mPerson->y,0,ofGetHeight(),1,0));
     
 	/*
     // this is not doing anything at the moment
@@ -252,13 +289,15 @@ void AppCore::update() {
 
 //--------------------------------------------------------------
 void AppCore::draw() {
-    
+    ofBackground(140);
     bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
     contourFinder.draw(0, 0, ofGetWidth(), ofGetHeight());
     
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->draw();
     }
+    ofSetColor(70, 70, 70);
+    ofDrawBitmapString(ofToString(mPerson->pipeID) + "  " + ofToString(mPerson->frequency), ofGetAppPtr()->mouseX + 5, ofGetAppPtr()->mouseY);
     
     ofSetColor(0, 0, 0);
     ofDrawBitmapString(message, 20,20);
@@ -272,6 +311,7 @@ void AppCore::draw() {
         ofSetColor(255);
         ofDrawBitmapString(info, blobCenterXmap[i]+6,blobCenterYmap[i]);
     }
+
 }
 
 //--------------------------------------------------------------
@@ -283,7 +323,8 @@ void AppCore::playTone(int pitch) {
 }
 
 void AppCore::mouseMoved(int x, int y ){
-   
+    mPerson->x = x;
+    mPerson->y = y;
 }
 
 //--------------------------------------------------------------

@@ -79,6 +79,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
 		//vector<float> scopeArray;
         //vector<Patch> instances;
         Patch patches[PERSON_NUM];
+        Patch mousePatch;
 		
 		int midiChan;
     
@@ -113,7 +114,11 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         vector<float> blobCenterY;
         vector<float> blobCenterYmap;
         float timeStamp;
-        int tubeID;
+    
+        // variables for testing with the mouse
+        ofPerson* mPerson;
+        int mID;
+        int mFreq;
     
         //-------------------------------------------------------
     

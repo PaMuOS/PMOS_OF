@@ -27,11 +27,16 @@ void ofPipe::update(){
 }
 
 void ofPipe::draw(){
-    ofNoFill();
+    ofSetLineWidth(4);
+    ofFill();
     if(isHit){
         ofSetColor(255, 80, 80);
     }else{
-        ofSetColor(30, 80, 80);
+        ofSetColor(200);
     }
+    ofCircle(x, y, radius);
+    ofNoFill();
+    ofSetLineWidth(2);
+    ofSetColor(10, 20, 20);
     ofCircle(x, y, radius);
 }

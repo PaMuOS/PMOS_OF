@@ -33,7 +33,7 @@ public: // place public functions or variables declarations here
     float diameter;
     float length;
     int openClosed;
-    
+    int pipeID;
     
     bool isHere;    // is it triggered
     

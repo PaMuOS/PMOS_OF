@@ -14,10 +14,11 @@ ofPerson::ofPerson(float _x, float _y, float _freq, int _idNum)
     x = _x;
     y = _y;
     idNum = _idNum;
-    
+
     frequency = _freq;
     
     isHere = true;
+    pipeID = 0;
 }
 
 void ofPerson::update(){

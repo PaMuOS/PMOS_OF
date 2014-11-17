@@ -11,7 +11,7 @@ void ofApp::setup(){
     int numInputs = 0; // no built in mic4
 #else
     int ticksPerBuffer = 8; // 8 * 64 = buffer len of 512
-    int numInputs = 1;
+    int numInputs = 0;
 #endif
     
     soundStream.listDevices();
