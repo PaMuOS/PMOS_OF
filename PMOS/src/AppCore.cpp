@@ -296,8 +296,8 @@ void AppCore::draw() {
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->draw();
     }
-    ofSetColor(70, 70, 70);
-    ofDrawBitmapString(ofToString(mPerson->pipeID) + "  " + ofToString(mPerson->frequency), ofGetAppPtr()->mouseX + 5, ofGetAppPtr()->mouseY);
+    string mText = ofToString(mPerson->pipeID) + "  " + ofToString(mPerson->frequency);
+    ofDrawBitmapStringHighlight(mText, ofGetAppPtr()->mouseX + 5, ofGetAppPtr()->mouseY);
     
     ofSetColor(0, 0, 0);
     ofDrawBitmapString(message, 20,20);
