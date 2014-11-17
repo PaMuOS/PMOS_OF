@@ -304,12 +304,12 @@ void AppCore::draw() {
 
     for(int i=0; i<currentInput; i++){
         // draw center of blobs
+        string pText = ofToString(i) + " " + ofToString(persons[i]->pipeID) + " " + ofToString(persons[i]->frequency);
         ofSetColor(255, 255, 0);
         ofFill();
-        ofCircle(blobCenterXmap[i], blobCenterYmap[i], 3);
-        ofDrawBitmapString(ofToString(i), blobCenterXmap[i], blobCenterYmap[i]);
+        ofCircle(persons[i]->x, persons[i]->y, 5);
+        ofDrawBitmapStringHighlight(pText, persons[i]->x+5, persons[i]->y-5);
         ofSetColor(255);
-        ofDrawBitmapString(info, blobCenterXmap[i]+6,blobCenterYmap[i]);
     }
 
 }
