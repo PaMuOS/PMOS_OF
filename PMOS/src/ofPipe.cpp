@@ -32,7 +32,11 @@ void ofPipe::draw(){
     if(isHit){
         ofSetColor(255, 80, 80);
     }else{
-        ofSetColor(200);
+        if(openClosed==1){
+            ofSetColor(200);
+        }else{
+            ofSetColor(230);
+        }
     }
     ofCircle(x, y, radius);
     ofNoFill();

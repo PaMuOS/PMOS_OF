@@ -25,7 +25,7 @@
 #define HOST "localhost"
 #define PORT 12345
 #define TUBE_NUM 571
-#define PERSON_NUM 5
+#define PERSON_NUM 10
 
 // a namespace for the Pd types
 using namespace pd;
@@ -106,7 +106,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         
         int maxInput = 30;
         int currentInput;
-        int thresholdVal = 100;
+        int thresholdVal = 80;
    
         vector<ofxCvBlob> blobs;
         vector<float> blobCenterX;
@@ -119,6 +119,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         ofPerson* mPerson;
         int mID;
         int mFreq;
+        bool outputState;
     
         //-------------------------------------------------------
     

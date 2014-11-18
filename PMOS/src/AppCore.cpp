@@ -125,6 +125,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     // load a separate patch for the mouse
     mousePatch = pd.openPatch("pd/main.pd");
     mPerson = new ofPerson(0.0,0.0,0.0,0);
+    outputState=false;
 }
 
 //--------------------------------------------------------------
@@ -172,7 +173,7 @@ void AppCore::update() {
     ////////////////////////////////////////////////////////////////////////////////////////
     
     ofxOscBundle b;
-    timeStamp = ofGetUnixTime()*1.0;
+    timeStamp = ofGetUnixTime();
     //timeStamp = ofGetTimestampString():
     
     if(currentInput>PERSON_NUM){
@@ -278,6 +279,7 @@ void AppCore::update() {
     // OF screen bottom-left is top-left for the vbap speaker placement
     pd.sendFloat(mousePatch.dollarZeroStr()+"-y",ofMap(mPerson->x,0,ofGetWidth(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-x",ofMap(mPerson->y,0,ofGetHeight(),1,0));
+    pd.sendFloat(mousePatch.dollarZeroStr()+"-selectOutput",outputState);
     
 	/*
     // this is not doing anything at the moment
@@ -296,11 +298,17 @@ void AppCore::draw() {
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->draw();
     }
-    string mText = ofToString(mPerson->pipeID) + "  " + ofToString(mPerson->frequency);
+    string mText = ofToString(mPerson->pipeID) + "/f:" + ofToString(mPerson->frequency) + "/d:" + ofToString(mPerson->diameter) + "/h:" + ofToString(mPerson->height - mPerson->length);
     ofDrawBitmapStringHighlight(mText, ofGetAppPtr()->mouseX + 5, ofGetAppPtr()->mouseY);
     
     ofSetColor(0, 0, 0);
-    ofDrawBitmapString(message, 20,20);
+    ofDrawBitmapStringHighlight(message, 20,ofGetHeight()-40);
+    if(outputState){
+        ofDrawBitmapStringHighlight("stereo audio (press a to switch)", 20, ofGetHeight()-20);
+    }else{
+        ofDrawBitmapStringHighlight("8-channel audio (press a to switch)", 20,ofGetHeight()-20);
+    }
+    
 
     for(int i=0; i<currentInput; i++){
         // draw center of blobs
@@ -329,6 +337,9 @@ void AppCore::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void AppCore::keyPressed (int key) {
+    if(key=='a'){
+        outputState = !outputState;
+    }
 
 }
 
