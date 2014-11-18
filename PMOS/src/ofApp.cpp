@@ -1,5 +1,6 @@
 #include "ofApp.h"
 #include <Poco/Path.h>
+#include "RtAudio.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -14,14 +15,79 @@ void ofApp::setup(){
     int numInputs = 0;
 #endif
     
-    soundStream.listDevices();
+    bool rmeConnected = false;
+    int deviceID = 0;
+    int numOutputs = 0;
+    int builtInDevice;
+    //soundStream.listDevices();
+    //------------------------------------------------
+    ofPtr<RtAudio> audioTemp;
+    try {
+        audioTemp = ofPtr<RtAudio>(new RtAudio());
+    } catch (RtError &error) {
+        error.printMessage();
+        return;
+    }
+    int devices = audioTemp->getDeviceCount();
+    RtAudio::DeviceInfo info;
+    for (int i=0; i< devices; i++) {
+        try {
+            info = audioTemp->getDeviceInfo(i);
+        } catch (RtError &error) {
+            error.printMessage();
+            break;
+        }
+        ofLogNotice("ofRtAudioSoundStream") << "device " << i << " " << info.name << "";
+        if (info.isDefaultInput) ofLogNotice("ofRtAudioSoundStream") << "----* default ----*";
+        ofLogNotice("ofRtAudioSoundStream") << "maximum output channels " << info.outputChannels;
+        ofLogNotice("ofRtAudioSoundStream") << "maximum input channels " << info.inputChannels;
+        ofLogNotice("ofRtAudioSoundStream") << "-----------------------------------------";
+    }
+    for (int i=0; i< devices; i++) {
+        try {
+            info = audioTemp->getDeviceInfo(i);
+        } catch (RtError &error) {
+            error.printMessage();
+            break;
+        }
+        if(info.name == "Apple Inc.: Built-in Output"){
+            //rmeConnected = true;
+            deviceID = 2;
+            numOutputs = 2;
+            cout << "found built-in audio";
+        }
+
+        if(info.name == "RME: Fireface 400 (963)"){
+            rmeConnected = true;
+            deviceID = i;
+            numOutputs = 8;
+            cout << "found fireface";
+        }
+    }
+    if(!rmeConnected){
+        deviceID = 2;
+        numOutputs = 2;
+    }
     
-    soundStream.setDeviceID(8);
+    soundStream.setDeviceID(deviceID);
+    soundStream.setup(this,numOutputs,numInputs,44100,ofxPd::blockSize()*ticksPerBuffer,16);
+
+    //------------------------------------------------
+    
 	// setup OF sound stream
-    soundStream.setup(this,8,numInputs,44100,ofxPd::blockSize()*ticksPerBuffer,16);
+//    if(soundStream.setup(this,8,numInputs,44100,ofxPd::blockSize()*ticksPerBuffer,16)){
+//        cout << "interface found";
+//        numOutputs = 8;
+//    }else{
+//        soundStream.stop();
+//        soundStream.setDeviceID(2);
+//        soundStream.setup(this,2,numInputs,44100,ofxPd::blockSize()*ticksPerBuffer,16);
+//        cout << "no sound interface. using built-in output.\n";
+//        numOutputs = 2;
+//    }
     
 	// setup the app core
-	core.setup(8, numInputs, 44100, ticksPerBuffer);
+	core.setup(numOutputs, numInputs, 44100, ticksPerBuffer);
 
 }
 
