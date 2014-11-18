@@ -117,6 +117,7 @@
 		C80E76F000452DD006C31F3D /* pd~.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C2542A9AB683E274FBA196 /* pd~.c */; };
 		CC0F075B5F4A4922B75642E2 /* g_canvas.c in Sources */ = {isa = PBXBuildFile; fileRef = C13BBD58C569986BABEF4C2F /* g_canvas.c */; };
 		CD8DC3F354F581A8B877E4A1 /* x_midi.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BE14A515B465F9F94740B1E /* x_midi.c */; };
+		CDD022A71A1AC17200695756 /* demultiplex~.c in Sources */ = {isa = PBXBuildFile; fileRef = CDD022A61A1AC16300695756 /* demultiplex~.c */; };
 		D00C3EB2D372B107D709123B /* g_mycanvas.c in Sources */ = {isa = PBXBuildFile; fileRef = DC0D9EDA99DA7C6B6A1510BF /* g_mycanvas.c */; };
 		D21112A27514DAD7FEBE0E37 /* pdsched.c in Sources */ = {isa = PBXBuildFile; fileRef = 89F84ADD268FA369026A2843 /* pdsched.c */; };
 		D31F5C1B140C59B2AF1533A8 /* registration.c in Sources */ = {isa = PBXBuildFile; fileRef = 71958293AC5292DE4B7C619D /* registration.c */; };
@@ -424,6 +425,9 @@
 		C9E0672172ADE339EA1B2B5C /* g_readwrite.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = g_readwrite.c; path = "../../../addons/ofxPd/libs/libpd/pure-data/src/g_readwrite.c"; sourceTree = SOURCE_ROOT; };
 		CBDE84185E2969BA4AB209FC /* general.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = general.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/general.h; sourceTree = SOURCE_ROOT; };
 		CD8565F2F122EECA0C095526 /* types_c.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = types_c.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/types_c.h; sourceTree = SOURCE_ROOT; };
+		CDD022A61A1AC16300695756 /* demultiplex~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "demultiplex~.c"; sourceTree = "<group>"; };
+		CDD022A81A1AC18E00695756 /* zexy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zexy.h; sourceTree = "<group>"; };
+		CDD022A91A1AC1B600695756 /* zexyconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zexyconf.h; sourceTree = "<group>"; };
 		CE2B6BAF505C3182CCE624E9 /* d_misc.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = d_misc.c; path = "../../../addons/ofxPd/libs/libpd/pure-data/src/d_misc.c"; sourceTree = SOURCE_ROOT; };
 		CE81A5E39EB3C871FDF3D4D5 /* ofxOpenCv.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOpenCv.h; path = ../../../addons/ofxOpenCv/src/ofxOpenCv.h; sourceTree = SOURCE_ROOT; };
 		CE9C7160245B19131DAE6128 /* ofxCvColorImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvColorImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvColorImage.cpp; sourceTree = SOURCE_ROOT; };
@@ -672,6 +676,7 @@
 		211075721A13774C001836F6 /* externals */ = {
 			isa = PBXGroup;
 			children = (
+				CDD022A51A1AC16300695756 /* demux */,
 				21C3DEB01A14B54800ED0F2D /* expr */,
 				2110782F1A13774D001836F6 /* pink */,
 				211078371A13774D001836F6 /* spigot */,
@@ -1277,6 +1282,16 @@
 			name = src;
 			sourceTree = "<group>";
 		};
+		CDD022A51A1AC16300695756 /* demux */ = {
+			isa = PBXGroup;
+			children = (
+				CDD022A91A1AC1B600695756 /* zexyconf.h */,
+				CDD022A81A1AC18E00695756 /* zexy.h */,
+				CDD022A61A1AC16300695756 /* demultiplex~.c */,
+			);
+			path = demux;
+			sourceTree = "<group>";
+		};
 		D0CAFE48EE488EEED9149670 /* objdetect */ = {
 			isa = PBXGroup;
 			children = (
@@ -1531,6 +1546,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDD022A71A1AC17200695756 /* demultiplex~.c in Sources */,
 				21C3DEB81A14B5AB00ED0F2D /* vexp.c in Sources */,
 				21C3DEB91A14B5AB00ED0F2D /* vexp_fun.c in Sources */,
 				21C3DEBA1A14B5AB00ED0F2D /* vexp_if.c in Sources */,
