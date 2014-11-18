@@ -275,7 +275,7 @@
         <y>-73.3</y>
         <weight>32.5</weight>
         <element />
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4037</num>
@@ -308,7 +308,7 @@
         <y>-48.3</y>
         <weight>33.1</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4149</num>
@@ -396,7 +396,7 @@
         <y>-56</y>
         <weight>27.3</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4152</num>
@@ -660,7 +660,7 @@
         <y>-25.0</y>
         <weight>23.6</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3178</num>
@@ -693,7 +693,7 @@
         <y>-52.5</y>
         <weight>29.8</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3144</num>
@@ -792,7 +792,7 @@
         <y>-32.2</y>
         <weight>38.3</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3136</num>
@@ -1001,7 +1001,7 @@
         <y>-55.1</y>
         <weight>40.4</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5031</num>
@@ -1309,7 +1309,7 @@
         <y>-37.8</y>
         <weight>35.3</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2017</num>
@@ -1342,7 +1342,7 @@
         <y>-44.7</y>
         <weight>35.6</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4047</num>
@@ -1364,7 +1364,7 @@
         <y>-20.7</y>
         <weight>35.6</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4155</num>
@@ -3454,7 +3454,7 @@
         <y>-40.0</y>
         <weight>50.0</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4044</num>
@@ -3883,7 +3883,7 @@
         <y>-55.0</y>
         <weight>42.9</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5027</num>
@@ -4411,7 +4411,7 @@
         <y>-51.8</y>
         <weight>57.5</weight>
         <element>3</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3155</num>
@@ -6269,8 +6269,8 @@
         <length>100</length>
         <height>0</height>
         <diameter>32.8</diameter>
-        <x>37</x>
-        <y>21</y>
+        <x>38</x>
+        <y>22</y>
         <weight>0</weight>
         <element>15</element>
         <oc>1</oc>
@@ -6282,7 +6282,7 @@
         <length>100</length>
         <height>0</height>
         <diameter>21.8</diameter>
-        <x>-46</x>
+        <x>-48</x>
         <y>18</y>
         <weight>0</weight>
         <element>15</element>
