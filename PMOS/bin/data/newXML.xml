@@ -37,7 +37,7 @@
         <x>0.636589825</x>
         <y>0.966169417</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3187</num>
@@ -67,7 +67,7 @@
         <x>0.083207674</x>
         <y>0.880915761</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>1009</num>
@@ -107,7 +107,7 @@
         <x>0.013755137</x>
         <y>0.671584427</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3070</num>
@@ -194,10 +194,10 @@
         <length>116.000000000</length>
         <height>421.399993896</height>
         <diameter>11.166666985</diameter>
-        <x>0.184057102</x>
-        <y>0.589040637</y>
+        <x>0.292985529</x>
+        <y>0.079593115</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3081</num>
@@ -267,7 +267,7 @@
         <x>0.105656713</x>
         <y>0.761099041</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5019</num>
@@ -407,7 +407,7 @@
         <x>0.275590748</x>
         <y>0.774560869</y>
         <element>2</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2134</num>
@@ -447,7 +447,7 @@
         <x>0.299127966</x>
         <y>0.772644997</y>
         <element>2</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2165</num>
@@ -467,7 +467,7 @@
         <x>0.617709577</x>
         <y>0.972476900</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4084</num>
@@ -617,7 +617,7 @@
         <x>0.665151954</x>
         <y>0.872639537</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4039</num>
@@ -677,7 +677,7 @@
         <x>0.191256821</x>
         <y>0.723195553</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>1002</num>
@@ -687,7 +687,7 @@
         <x>0.394536078</x>
         <y>0.883687675</y>
         <element>4</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4158</num>
@@ -797,7 +797,7 @@
         <x>0.076280877</x>
         <y>0.843278706</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5106</num>
@@ -837,7 +837,7 @@
         <x>0.696160078</x>
         <y>0.843258381</y>
         <element>10</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3055</num>
@@ -887,7 +887,7 @@
         <x>0.928506076</x>
         <y>0.366262913</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>1005</num>
@@ -897,7 +897,7 @@
         <x>0.454303294</x>
         <y>0.912070990</y>
         <element>4</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5018</num>
@@ -927,7 +927,7 @@
         <x>0.656299353</x>
         <y>0.069083951</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5073</num>
@@ -937,7 +937,7 @@
         <x>0.780870676</x>
         <y>0.848781049</y>
         <element>10</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4119</num>
@@ -987,7 +987,7 @@
         <x>0.663184643</x>
         <y>0.114044145</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4107</num>
@@ -1047,7 +1047,7 @@
         <x>0.906022429</x>
         <y>0.781638503</y>
         <element>14</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4134</num>
@@ -1087,7 +1087,7 @@
         <x>0.726544619</x>
         <y>0.913690865</y>
         <element>10</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>1047</num>
@@ -1197,7 +1197,7 @@
         <x>0.028916322</x>
         <y>0.650266647</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4038</num>
@@ -1307,7 +1307,7 @@
         <x>0.098710887</x>
         <y>0.861208916</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3133</num>
@@ -1437,7 +1437,7 @@
         <x>0.894438684</x>
         <y>0.739609957</y>
         <element>14</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4136</num>
@@ -1497,7 +1497,7 @@
         <x>0.921095610</x>
         <y>0.744869113</y>
         <element>14</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4109</num>
@@ -1567,7 +1567,7 @@
         <x>0.889709055</x>
         <y>0.810060263</y>
         <element>14</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5122</num>
@@ -1687,7 +1687,7 @@
         <x>0.599936604</x>
         <y>0.958938181</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3091</num>
@@ -1727,7 +1727,7 @@
         <x>0.031997934</x>
         <y>0.684829950</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2004</num>
@@ -1957,7 +1957,7 @@
         <x>0.841389239</x>
         <y>0.775446594</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3182</num>
@@ -2037,7 +2037,7 @@
         <x>0.608323157</x>
         <y>0.046113804</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4130</num>
@@ -2167,7 +2167,7 @@
         <x>0.245777920</x>
         <y>0.799547613</y>
         <element>2</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4171</num>
@@ -2237,7 +2237,7 @@
         <x>0.692491293</x>
         <y>0.126771465</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2103</num>
@@ -2267,7 +2267,7 @@
         <x>0.848744512</x>
         <y>0.323902637</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4031</num>
@@ -2317,7 +2317,7 @@
         <x>0.766189694</x>
         <y>0.930001318</y>
         <element>10</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>1017</num>
@@ -2357,7 +2357,7 @@
         <x>0.053156585</x>
         <y>0.513825655</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2011</num>
@@ -2367,7 +2367,7 @@
         <x>0.121201321</x>
         <y>0.734069109</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>1029</num>
@@ -2387,7 +2387,7 @@
         <x>0.375598997</x>
         <y>0.062708348</y>
         <element>6</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3083</num>
@@ -2647,7 +2647,7 @@
         <x>0.943292320</x>
         <y>0.648925781</y>
         <element>14</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4017</num>
@@ -2767,7 +2767,7 @@
         <x>0.778203666</x>
         <y>0.244775936</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5025</num>
@@ -2857,7 +2857,7 @@
         <x>0.792435586</x>
         <y>0.284240067</y>
         <element>0</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2014</num>
@@ -2887,7 +2887,7 @@
         <x>0.562342048</x>
         <y>0.942260563</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5046</num>
@@ -2897,7 +2897,7 @@
         <x>0.741405427</x>
         <y>0.139122710</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>2085</num>
@@ -2917,7 +2917,7 @@
         <x>0.876783252</x>
         <y>0.415866166</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5058</num>
@@ -2927,7 +2927,7 @@
         <x>0.835600913</x>
         <y>0.402339309</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4104</num>
@@ -3047,7 +3047,7 @@
         <x>0.579900742</x>
         <y>0.952284276</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5074</num>
@@ -3057,7 +3057,7 @@
         <x>0.742911458</x>
         <y>0.948174238</y>
         <element>10</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5052</num>
@@ -3197,7 +3197,7 @@
         <x>0.900317073</x>
         <y>0.393885076</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4053</num>
@@ -3237,7 +3237,7 @@
         <x>0.096309811</x>
         <y>0.809802234</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5081</num>
@@ -3767,7 +3767,7 @@
         <x>0.506164312</x>
         <y>0.920759261</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4126</num>
@@ -3807,7 +3807,7 @@
         <x>0.694976985</x>
         <y>0.173564583</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5103</num>
@@ -3837,7 +3837,7 @@
         <x>0.871393859</x>
         <y>0.375445545</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>5016</num>
@@ -3957,7 +3957,7 @@
         <x>0.544441223</x>
         <y>0.930626035</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4138</num>
@@ -3987,7 +3987,7 @@
         <x>0.892210484</x>
         <y>0.450935841</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3001</num>
@@ -4017,7 +4017,7 @@
         <x>0.532484353</x>
         <y>0.954505265</y>
         <element>7</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4140</num>
@@ -4087,7 +4087,7 @@
         <x>0.857775271</x>
         <y>0.424077630</y>
         <element>13</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4172</num>
@@ -4447,7 +4447,7 @@
         <x>0.062308170</x>
         <y>0.571966231</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4080</num>
@@ -4457,7 +4457,7 @@
         <x>0.659529507</x>
         <y>0.222134396</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4045</num>
@@ -4637,7 +4637,7 @@
         <x>0.724710286</x>
         <y>0.183289200</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4137</num>
@@ -5187,7 +5187,7 @@
         <x>0.049330443</x>
         <y>0.621110559</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>4063</num>
@@ -5257,7 +5257,7 @@
         <x>0.057972465</x>
         <y>0.696899891</y>
         <element>1</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>3059</num>
@@ -5397,7 +5397,7 @@
         <x>0.718227446</x>
         <y>0.242975503</y>
         <element>9</element>
-        <oc>1</oc>
+        <oc>0</oc>
     </tube>
     <tube>
         <num>6003</num>
