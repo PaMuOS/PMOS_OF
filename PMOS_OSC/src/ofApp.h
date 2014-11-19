@@ -1,41 +1,30 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofPipe.h"
-#include "ofxXmlSettings.h"
-#include "ofxOsc.h"
+#include "AppCore.h"
 
-#define HOST "localhost"
-#define PORT 12345
-#define TUBE_NUM 565
 
 class ofApp : public ofBaseApp{
 
 	public:
-		void setup();
-		void update();
-		void draw();
+    void setup();
+    void update();
+    void draw();
+    void exit();
+    
+    void keyPressed  (int key);
+    void mouseMoved(int x, int y );
+    void mouseDragged(int x, int y, int button);
+    void mousePressed(int x, int y, int button);
+    void mouseReleased(int x, int y, int button);
+    void windowResized(int w, int h);
+    
+    void audioReceived(float * input, int bufferSize, int nChannels);
+    void audioRequested(float * output, int bufferSize, int nChannels);
+    
+    AppCore core;
+		
+    ofSoundStream soundStream;
+    
 
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-    
-        ofxXmlSettings XML;
-        string message;
-        string info;
-        float sendFreq;
-        float sendDia;
-        float sendHeight;
-    
-        ofxOscSender sender;
-    
-    private:
-        ofPipe** allPipes;
-    
 };

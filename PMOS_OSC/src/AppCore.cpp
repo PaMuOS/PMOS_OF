@@ -119,11 +119,11 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     
     // load the PD patches and create the people
     for(int i = 0; i<PERSON_NUM; i++){
-        patches[i] = pd.openPatch("pd/main.pd");
+        //patches[i] = pd.openPatch("pd/main.pd");
         persons[i] = new ofPerson(0.0,0.0,0.0, i);
     }
     // load a separate patch for the mouse
-    mousePatch = pd.openPatch("pd/main.pd");
+    //mousePatch = pd.openPatch("pd/main.pd");
     mPerson = new ofPerson(0.0,0.0,0.0,0);
     outputState=false;
 }

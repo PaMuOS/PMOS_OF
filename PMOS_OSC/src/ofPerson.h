@@ -1,17 +1,21 @@
 //
-//  ofPipe.h
-//  PMOS
+//  person.h
+//  sib_monument
 //
-//  Created by Matti Niinimäki on 10/9/14.
+//  Created by Karina Jensen on 13/10/14.
 //
 //
 
-#ifndef _OF_PIPE
-#define _OF_PIPE
+#ifndef __sib_monument__person__
+#define __sib_monument__person__
 
+#include <iostream>
 #include "ofMain.h"
 
-class ofPipe {
+
+
+
+class ofPerson {
     
 public: // place public functions or variables declarations here
     
@@ -22,19 +26,24 @@ public: // place public functions or variables declarations here
     // variables
     float x;        // position
     float y;
-    int radius;        // radius
-    float length;   
-    float height;
+    
     float frequency;
-    int idNum;      // number of the pipe
-    int element;    // element number
-    bool isHit;    // is it triggered
+    int idNum;      
+    float height;
+    float diameter;
+    float length;
     int openClosed;
+    int pipeID;
+    
+    bool isHere;    // is it triggered
+    
     // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
-    ofPipe(float _x, float _y, float _radius, float _length, float _height, float _frequency, int _idNum, int _element, int _open);
+    ofPerson(float _x, float _y, float _freq, int _idNum);
     
 private: // place private functions or variables declarations here
     
 }; // dont't forget the semicolon!!
 
-#endif /* defined(_OF_PIPE) */
+
+
+#endif /* defined(__sib_monument__person__) */
