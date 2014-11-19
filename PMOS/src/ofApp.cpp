@@ -52,7 +52,7 @@ void ofApp::setup(){
         }
         if(info.name == "Apple Inc.: Built-in Output"){
             //rmeConnected = true;
-            deviceID = 2;
+            deviceID = i;
             numOutputs = 2;
             cout << "found built-in audio";
         }
@@ -63,10 +63,6 @@ void ofApp::setup(){
             numOutputs = 8;
             cout << "found fireface";
         }
-    }
-    if(!rmeConnected){
-        deviceID = 2;
-        numOutputs = 2;
     }
     
     soundStream.setDeviceID(deviceID);

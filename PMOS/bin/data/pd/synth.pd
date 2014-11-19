@@ -1,4 +1,4 @@
-#N canvas 466 27 1265 752 10;
+#N canvas 466 106 1265 752 10;
 #X floatatom 145 61 5 0 0 0 - - -;
 #X text 181 58 Fundamental;
 #X obj 145 101 * 1;
@@ -54,10 +54,10 @@
 1;
 #X msg 1127 28 \; pd dsp \$1;
 #X obj -8 413 hsl 128 15 0 100 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
+-1 -1 1900 1;
 #X text 125 409 bright;
 #X text -46 409 warm;
-#N canvas 508 373 533 363 tone 0;
+#N canvas 279 529 533 363 tone 0;
 #X obj 8 73 inlet;
 #X obj 53 73 inlet;
 #X obj 97 73 inlet;
@@ -94,7 +94,7 @@
 #X connect 19 0 15 0;
 #X connect 20 0 14 0;
 #X coords 0 726 2 724 0 0 0;
-#X restore -11 449 pd tone;
+#X restore -12 458 pd tone;
 #X obj 926 411 sig~;
 #X obj 895 434 vcf~ 100 10;
 #X obj 895 521 *~ 1;

@@ -113,7 +113,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         vector<float> blobCenterXmap;
         vector<float> blobCenterY;
         vector<float> blobCenterYmap;
-        float timeStamp;
+        uint32_t      timeStamp;
     
         // variables for testing with the mouse
         ofPerson* mPerson;

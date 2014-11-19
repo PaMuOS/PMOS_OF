@@ -174,6 +174,7 @@ void AppCore::update() {
     
     ofxOscBundle b;
     timeStamp = ofGetUnixTime();
+    //timeStamp = ofGetSystemTimeMicros()/1000.0;
     //timeStamp = ofGetTimestampString():
     
     if(currentInput>PERSON_NUM){
@@ -185,7 +186,7 @@ void AppCore::update() {
     mPerson->frequency=0;
     ofxOscMessage m;
     m.setAddress("/mouse");
-    m.addFloatArg(timeStamp); // timestamp
+    m.addIntArg(timeStamp); // timestamp
     m.addFloatArg(0); // userID ???
     m.addFloatArg(mPerson->x); // x
     m.addFloatArg(mPerson->y); // y
@@ -220,7 +221,7 @@ void AppCore::update() {
         
         ofxOscMessage oscMessage;
         oscMessage.setAddress("/messages/" + ofToString(u));
-        oscMessage.addFloatArg(timeStamp); // timestamp
+        oscMessage.addIntArg(timeStamp); // timestamp
         oscMessage.addFloatArg(u); // userID ???
         oscMessage.addFloatArg(persons[u]->x); // x
         oscMessage.addFloatArg(persons[u]->y); // y
@@ -260,7 +261,7 @@ void AppCore::update() {
         pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
-        pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter*3.4);
+        pd.sendFloat(patches[i].dollarZeroStr()+"-diameter",persons[i]->diameter);
         // vbap
         // OF screen bottom-left is top-left for the vbap speaker placement
         pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->x,0,ofGetWidth(),1,0));
