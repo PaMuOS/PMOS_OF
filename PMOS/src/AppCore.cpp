@@ -86,6 +86,8 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     }
     
     XML.pushTag("document");
+    newXML.addTag("document");
+    newXML.pushTag("document");
     
     for(int i=0; i<TUBE_NUM; i++){
         
@@ -98,6 +100,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         float angle = ofDegToRad(-20);
         float rX = (x*cos(angle) - y*sin(angle));
         float rY = (x*sin(angle) + y*cos(angle));
+        
         
         // map to the of window size
         float mult = 6;
@@ -114,8 +117,22 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         
         allPipes[i] = new ofPipe(x,y,radius,length,height,frequency, idNum, element, open);
         
+        newXML.addTag("tube");
+        newXML.pushTag("tube", i);
+        newXML.addValue("num", idNum);
+        newXML.addValue("length", length);
+        newXML.addValue("height", height);
+        newXML.addValue("diameter", radius);
+        newXML.addValue("x", ofMap(x, 0, ofGetWidth(), 0, 1));
+        newXML.addValue("y", ofMap(y, 0, ofGetHeight(), 0, 1));
+        newXML.addValue("element", element);
+        newXML.addValue("oc", open);
+        
         XML.popTag();
+        newXML.popTag();
     }
+    
+    newXML.saveFile("newXML.xml");
     
     // load the PD patches and create the people
     for(int i = 0; i<PERSON_NUM; i++){

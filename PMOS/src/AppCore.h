@@ -84,6 +84,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
 		int midiChan;
     
         ofxXmlSettings XML;
+        ofxXmlSettings newXML;
         string message;
         string info;
         float sendFreq;
