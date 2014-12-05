@@ -47,12 +47,13 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     //----------------------------------- KINECT START -------------------------------------------
     kinect.listDevices();
     kinect.init();
-    kinect.open("A00365917784047A");
+   // kinect.open("A00365917784047A");// the one in the ceiling
+    kinect.open("A00364A11700045A");//the other one
     kinect.setCameraTiltAngle(0);
     grayImage.allocate(kinect.width, kinect.height);
 
     kinect1.init();
-    kinect1.open("A00364A11700045A");
+    kinect1.open("0000000000000000");
     kinect1.setCameraTiltAngle(0);
     grayImage1.allocate(kinect1.width, kinect1.height);
     

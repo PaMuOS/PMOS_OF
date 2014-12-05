@@ -5310,16 +5310,6 @@
         <oc>1</oc>
     </tube>
     <tube>
-        <num>219</num>
-        <length>420.000000000</length>
-        <height>0.000000000</height>
-        <diameter>10.277777672</diameter>
-        <x>0.629721820</x>
-        <y>0.525324404</y>
-        <element>12</element>
-        <oc>1</oc>
-    </tube>
-    <tube>
         <num>4162</num>
         <length>425.000000000</length>
         <height>540.599975586</height>

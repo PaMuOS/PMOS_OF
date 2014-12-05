@@ -21,6 +21,8 @@
 		1D5F3298C2FA073628012944 /* ofxCvContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C76DE5C29BDBD2CAA1DD0021 /* ofxCvContourFinder.cpp */; };
 		1D7B9BAA73D029B7D342BD10 /* fiddle~.c in Sources */ = {isa = PBXBuildFile; fileRef = 87C6F9279A2560DDAC6D0B2D /* fiddle~.c */; };
 		1EC960D751D8E0563978C717 /* lrshift~.c in Sources */ = {isa = PBXBuildFile; fileRef = 91AD602F84E295D4A339DABB /* lrshift~.c */; };
+		210A0D0D1A31E69900C8FC39 /* drunk.c in Sources */ = {isa = PBXBuildFile; fileRef = 210A0D0C1A31E65500C8FC39 /* drunk.c */; };
+		210A0D101A31E6F300C8FC39 /* rand.c in Sources */ = {isa = PBXBuildFile; fileRef = 210A0D0E1A31E6F200C8FC39 /* rand.c */; };
 		211078431A13781B001836F6 /* loud.c in Sources */ = {isa = PBXBuildFile; fileRef = 211078301A13774D001836F6 /* loud.c */; };
 		211078441A13781B001836F6 /* pink.c in Sources */ = {isa = PBXBuildFile; fileRef = 211078321A13774D001836F6 /* pink.c */; };
 		211078451A13781B001836F6 /* shared.c in Sources */ = {isa = PBXBuildFile; fileRef = 211078331A13774D001836F6 /* shared.c */; };
@@ -223,6 +225,9 @@
 		1E95EFD35ED9C5D97F2F015E /* timer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = timer.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/timer.h; sourceTree = SOURCE_ROOT; };
 		1FE113A1032ECB638E24AF1C /* m_class.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = m_class.c; path = "../../../addons/ofxPd/libs/libpd/pure-data/src/m_class.c"; sourceTree = SOURCE_ROOT; };
 		20F35AFADAF0068B067E713F /* OscReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscReceivedElements.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.h; sourceTree = SOURCE_ROOT; };
+		210A0D0C1A31E65500C8FC39 /* drunk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = drunk.c; sourceTree = "<group>"; };
+		210A0D0E1A31E6F200C8FC39 /* rand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rand.c; sourceTree = "<group>"; };
+		210A0D0F1A31E6F300C8FC39 /* rand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rand.h; sourceTree = "<group>"; };
 		211078301A13774D001836F6 /* loud.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loud.c; sourceTree = "<group>"; };
 		211078311A13774D001836F6 /* loud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loud.h; sourceTree = "<group>"; };
 		211078321A13774D001836F6 /* pink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pink.c; sourceTree = "<group>"; };
@@ -673,9 +678,21 @@
 			name = ofxXmlSettings;
 			sourceTree = "<group>";
 		};
+		210A0D0B1A31E65500C8FC39 /* drunk */ = {
+			isa = PBXGroup;
+			children = (
+				210A0D0C1A31E65500C8FC39 /* drunk.c */,
+				210A0D0E1A31E6F200C8FC39 /* rand.c */,
+				210A0D0F1A31E6F300C8FC39 /* rand.h */,
+			);
+			name = drunk;
+			path = src/externals/drunk;
+			sourceTree = SOURCE_ROOT;
+		};
 		211075721A13774C001836F6 /* externals */ = {
 			isa = PBXGroup;
 			children = (
+				210A0D0B1A31E65500C8FC39 /* drunk */,
 				CDD022A51A1AC16300695756 /* demux */,
 				21C3DEB01A14B54800ED0F2D /* expr */,
 				2110782F1A13774D001836F6 /* pink */,
@@ -1546,6 +1563,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				210A0D0D1A31E69900C8FC39 /* drunk.c in Sources */,
+				210A0D101A31E6F300C8FC39 /* rand.c in Sources */,
 				CDD022A71A1AC17200695756 /* demultiplex~.c in Sources */,
 				21C3DEB81A14B5AB00ED0F2D /* vexp.c in Sources */,
 				21C3DEB91A14B5AB00ED0F2D /* vexp_fun.c in Sources */,

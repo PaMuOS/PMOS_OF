@@ -24,7 +24,7 @@
 
 #define HOST "localhost"
 #define PORT 12345
-#define TUBE_NUM 571
+#define TUBE_NUM 570
 #define PERSON_NUM 10
 
 // a namespace for the Pd types

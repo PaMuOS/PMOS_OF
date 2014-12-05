@@ -5843,18 +5843,7 @@
         <element>4</element>
         <oc>1</oc>
     </tube>
-    <tube>
-        <num>219</num>
-        <length>420.0</length>
-        <height>0.0</height>
-        <diameter>18.5</diameter>
-        <x>14.5</x>
-        <y>31.2</y>
-        <weight>65.7</weight>
-        <element>12</element>
-        <oc>1</oc>
-    </tube>
-    <tube>
+      <tube>
         <num>4162</num>
         <length>425.0</length>
         <height>540.6</height>
@@ -6237,9 +6226,6 @@
         <element>15</element>
         <oc>1</oc>
     </tube>
-    
-    
-    
     <tube>
         <num>4000</num>
         <length>100</length>
@@ -6300,7 +6286,19 @@
         <element>15</element>
         <oc>1</oc>
     </tube>
-    
+    <tube>
+        <num>219</num>
+        <length>420.0</length>
+        <height>0.0</height>
+        <diameter>18.5</diameter>
+        <x>14.5</x>
+        <y>31.2</y>
+        <weight>65.7</weight>
+        <element>12</element>
+        <oc>1</oc>
+    </tube>
+
+
     
     
 </document>

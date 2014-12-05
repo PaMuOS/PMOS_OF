@@ -16,6 +16,7 @@ extern "C" {
     void vbap_setup();
     void expr_setup();
     void demultiplex_tilde_setup();
+    void drunk_setup();
     
 }
 
@@ -32,7 +33,7 @@ public:
         vbap_setup();
         expr_setup();
         demultiplex_tilde_setup();
-        
+        drunk_setup();
     }
 };
 
