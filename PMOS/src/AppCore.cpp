@@ -16,6 +16,44 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
 
 	ofSetFrameRate(30);
 	ofSetVerticalSync(true);
+    
+    
+    //----------------------------------- WEBSOCKET START -------------------------------------------
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    // basic connection:
+    // client.connect("echo.websocket.org");
+    // OR optionally use SSL
+    // client.connect("echo.websocket.org", true);
+    
+    // advanced: set keep-alive timeouts for events like
+    // loss of internet
+    
+    // 1 - get default options
+    options = ofxLibwebsockets::defaultClientOptions();
+    
+    // 2 - set basic params
+    options.host = "pmos-website.jit.su";
+    //options.host = "echo.websocket.org";
+    //options.host = "localhost";
+    //options.port = 9092;
+    
+    // 3 - set keep alive params
+    // BIG GOTCHA: on BSD systems, e.g. Mac OS X, these time params are system-wide
+    // ...so ka_time just says "check if alive when you want" instead of "check if
+    // alive after X seconds"
+    //options.ka_time     = 1;
+    //options.ka_probes   = 50;
+    //options.ka_interval = 5;
+    
+    // 4 - connect
+    client.connect(options);
+    
+    ofSetLogLevel(OF_LOG_ERROR);
+    
+    client.addListener(this);
+    
+    //----------------------------------- WEBSOCKET END -------------------------------------------
+    
 	//ofSetLogLevel(OF_LOG_VERBOSE);
     
 	// double check where we are ...
@@ -144,10 +182,17 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     mousePatch = pd.openPatch("pd/main.pd");
     mPerson = new ofPerson(0.0,0.0,0.0,0);
     outputState=false;
+    tryConnecting=true;
 }
 
 //--------------------------------------------------------------
 void AppCore::update() {
+    if (!client.isConnected() && tryConnecting) {
+        if(ofGetFrameNum()%300==299){
+            cout<<"trying to connect..."<<endl;
+            client.connect(options);
+        }
+    }
     
     kinect.update();
     kinect1.update();
@@ -191,9 +236,10 @@ void AppCore::update() {
     ////////////////////////////////////////////////////////////////////////////////////////
     
     ofxOscBundle b;
-    timeStamp = ofGetUnixTime();
-    //timeStamp = ofGetSystemTimeMicros()/1000.0;
-    //timeStamp = ofGetTimestampString():
+    Poco::Timestamp epoch(0);
+    Poco::Timestamp now;
+    Poco::Timestamp::TimeDiff diffTime = (now - epoch);
+    timeStamp = (long long) (diffTime/1000);
     
     if(currentInput>PERSON_NUM){
         currentInput=PERSON_NUM;
@@ -278,6 +324,8 @@ void AppCore::update() {
         }
     }
     
+   
+    
     for (int i = 0; i < PERSON_NUM; i++){
         pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
@@ -287,6 +335,7 @@ void AppCore::update() {
         // OF screen bottom-left is top-left for the vbap speaker placement
         pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->x,0,ofGetWidth(),1,0));
         pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->y,0,ofGetHeight(),1,0));
+        
     }
     
     // sending OSC
@@ -302,13 +351,31 @@ void AppCore::update() {
     pd.sendFloat(mousePatch.dollarZeroStr()+"-y",ofMap(mPerson->x,0,ofGetWidth(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-x",ofMap(mPerson->y,0,ofGetHeight(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-selectOutput",outputState);
-    
-	/*
+    // WEBSOCKET STUFF
+    if(mPerson->pX != mPerson->x || mPerson->pY != mPerson->y){
+        jsonOut["channel"] = "0";
+        jsonOut["timestamp"] = ofToString(timeStamp);
+        jsonOut["x"] = ofToString(ofMap(mPerson->x,0,ofGetWidth(),0,1));
+        jsonOut["y"] = ofToString(ofMap(mPerson->y,0,ofGetHeight(),0,1));
+        jsonOut["num"] = ofToString(mPerson->pipeID);
+        jsonOut["frequency"] = ofToString(mPerson->frequency);
+        jsonOut["closed"] = ofToString(mPerson->openClosed);
+        jsonOut["diameter"] = ofToString(mPerson->diameter);
+        jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
+
+        if (client.isConnected()) {
+            client.send(ofToString(jsonOut));
+        }
+    }
+    mPerson->pX = mPerson->x;
+    mPerson->pY = mPerson->y;
+    /*
     // this is not doing anything at the moment
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->update();
     }
     */
+
 }
 
 //--------------------------------------------------------------
@@ -326,7 +393,7 @@ void AppCore::draw() {
     ofSetColor(0, 0, 0);
     ofDrawBitmapStringHighlight(message, 20,ofGetHeight()-40);
     if(outputState){
-        ofDrawBitmapStringHighlight("stereo audio (press a to switch)", 20, ofGetHeight()-20);
+        ofDrawBitmapStringHighlight("stereo audio (press a to switch) ", 20, ofGetHeight()-20);
     }else{
         ofDrawBitmapStringHighlight("8-channel audio (press a to switch)", 20,ofGetHeight()-20);
     }
@@ -340,6 +407,12 @@ void AppCore::draw() {
         ofCircle(persons[i]->x, persons[i]->y, 5);
         ofDrawBitmapStringHighlight(pText, persons[i]->x+5, persons[i]->y-5);
         ofSetColor(255);
+    }
+    
+    if (!client.isConnected()) {
+        ofDrawBitmapStringHighlight("not connected (s to stop trying)" + ofToString(tryConnecting), 20, ofGetHeight()-60);
+    }else{
+        ofDrawBitmapStringHighlight("connected", 20, ofGetHeight()-60);
     }
 
 }
@@ -361,6 +434,8 @@ void AppCore::mouseMoved(int x, int y ){
 void AppCore::keyPressed (int key) {
     if(key=='a'){
         outputState = !outputState;
+    }else if(key=='s'){
+        tryConnecting = !tryConnecting;
     }
 
 }
@@ -516,3 +591,34 @@ void AppCore::processEvents() {
 		}
 	}
 }
+
+//--------------------------------------------------------------
+void AppCore::onConnect( ofxLibwebsockets::Event& args ){
+    cout<<"on connected"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppCore::onOpen( ofxLibwebsockets::Event& args ){
+    cout<<"on open"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppCore::onClose( ofxLibwebsockets::Event& args ){
+    cout<<"on close"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppCore::onIdle( ofxLibwebsockets::Event& args ){
+    cout<<"on idle"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppCore::onMessage( ofxLibwebsockets::Event& args ){
+    cout<<"got message "<<args.message<<endl;
+}
+
+//--------------------------------------------------------------
+void AppCore::onBroadcast( ofxLibwebsockets::Event& args ){
+    cout<<"got broadcast "<<args.message<<endl;
+}
+

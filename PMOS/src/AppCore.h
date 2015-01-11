@@ -21,10 +21,12 @@
 #include "Externals.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
+#include "ofxLibwebsockets.h"
+#include "ofxJSON.h"
 
 #define HOST "localhost"
 #define PORT 12345
-#define TUBE_NUM 570
+#define TUBE_NUM 569
 #define PERSON_NUM 10
 
 // a namespace for the Pd types
@@ -114,15 +116,29 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         vector<float> blobCenterXmap;
         vector<float> blobCenterY;
         vector<float> blobCenterYmap;
-        uint32_t      timeStamp;
+        long long      timeStamp;
     
         // variables for testing with the mouse
         ofPerson* mPerson;
         int mID;
         int mFreq;
         bool outputState;
+        bool tryConnecting;
     
         //-------------------------------------------------------
+    
+        ofxLibwebsockets::Client client;
+        ofxLibwebsockets::ClientOptions options;
+    
+        // websocket methods
+        void onConnect( ofxLibwebsockets::Event& args );
+        void onOpen( ofxLibwebsockets::Event& args );
+        void onClose( ofxLibwebsockets::Event& args );
+        void onIdle( ofxLibwebsockets::Event& args );
+        void onMessage( ofxLibwebsockets::Event& args );
+        void onBroadcast( ofxLibwebsockets::Event& args );
+    
+        ofxJSONElement jsonOut;
     
     private:
         ofPipe** allPipes;

@@ -2744,7 +2744,7 @@
     <tube>
         <num>202</num>
         <length>200.0</length>
-        <height>0.0</height>
+        <height>200.0</height>
         <diameter>18.5</diameter>
         <x>25.0</x>
         <y>-24.2</y>
@@ -3426,7 +3426,7 @@
     <tube>
         <num>502</num>
         <length>222.5</length>
-        <height>0.0</height>
+        <height>222.5</height>
         <diameter>26.5</diameter>
         <x>29.2</x>
         <y>68.6</y>
@@ -4317,7 +4317,7 @@
     <tube>
         <num>206</num>
         <length>254.5</length>
-        <height>0.0</height>
+        <height>254.5</height>
         <diameter>18.5</diameter>
         <x>-1.3</x>
         <y>35.0</y>
@@ -4328,7 +4328,7 @@
     <tube>
         <num>403</num>
         <length>254.5</length>
-        <height>0.0</height>
+        <height>254.5</height>
         <diameter>21.2</diameter>
         <x>23.1</x>
         <y>66.7</y>
@@ -4460,7 +4460,7 @@
     <tube>
         <num>207</num>
         <length>265.0</length>
-        <height>0.0</height>
+        <height>265.0</height>
         <diameter>18.5</diameter>
         <x>0.2</x>
         <y>38.6</y>
@@ -4812,7 +4812,7 @@
     <tube>
         <num>208</num>
         <length>288.0</length>
-        <height>0.0</height>
+        <height>288.0</height>
         <diameter>18.5</diameter>
         <x>14</x>
         <y>63.2</y>
@@ -5131,7 +5131,7 @@
     <tube>
         <num>204</num>
         <length>318.0</length>
-        <height>0.0</height>
+        <height>318.0</height>
         <diameter>18.5</diameter>
         <x>40.8</x>
         <y>-11.7</y>
@@ -5153,7 +5153,7 @@
     <tube>
         <num>205</num>
         <length>318.0</length>
-        <height>0.0</height>
+        <height>318.0</height>
         <diameter>18.5</diameter>
         <x>35.2</x>
         <y>18.8</y>
@@ -5626,7 +5626,7 @@
     <tube>
         <num>201</num>
         <length>370.0</length>
-        <height>0.0</height>
+        <height>370.0</height>
         <diameter>18.5</diameter>
         <x>-3.8</x>
         <y>-37.2</y>
@@ -5758,7 +5758,7 @@
     <tube>
         <num>402</num>
         <length>397.5</length>
-        <height>0.0</height>
+        <height>397.5.0</height>
         <diameter>21.2</diameter>
         <x>4.4</x>
         <y>-38.6</y>
@@ -5769,7 +5769,7 @@
     <tube>
         <num>302</num>
         <length>400.0</length>
-        <height>0.0</height>
+        <height>400.0</height>
         <diameter>20.1</diameter>
         <x>-1.3</x>
         <y>-35.0</y>
@@ -5901,7 +5901,7 @@
     <tube>
         <num>301</num>
         <length>450.0</length>
-        <height>0.0</height>
+        <height>450.0</height>
         <diameter>20.1</diameter>
         <x>30.7</x>
         <y>-6.6</y>
@@ -6066,236 +6066,226 @@
     
     <tube>
         <num>1000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>196.0</length>
+        <height>340</height>
         <diameter>18.5</diameter>
         <x>-10</x>
         <y>-37</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     <tube>
         <num>1000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>196.0</length>
+        <height>350</height>
         <diameter>18.5</diameter>
         <x>-7</x>
         <y>-35</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     <tube>
         <num>1000</num>
-        <length>100</length>
-        <height>0</height>
-        <diameter>18.5</diameter>
-        <x>-7</x>
-        <y>-35</y>
-        <weight>0</weight>
-        <element>15</element>
-        <oc>1</oc>
-    </tube>
-    <tube>
-        <num>1000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>196.0</length>
+        <height>360</height>
         <diameter>18.5</diameter>
         <x>-4</x>
         <y>-33</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
-    </tube>
-    
-    <tube>
-        <num>1000</num>
-        <length>100</length>
-        <height>0</height>
-        <diameter>18.5</diameter>
-        <x>21</x>
-        <y>-8</y>
-        <weight>0</weight>
-        <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     <tube>
         <num>1000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>196.0</length>
+        <height>370</height>
         <diameter>18.5</diameter>
         <x>-2</x>
         <y>-30</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
+    </tube>
+
+    
+    <tube>
+        <num>1000</num>
+        <length>154.0</length>
+        <height>504.2</height>
+        <diameter>18.5</diameter>
+        <x>21</x>
+        <y>-8</y>
+        <weight>0</weight>
+        <element>15</element>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>2000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>132.0</length>
+        <height>493.4</height>
         <diameter>20.1</diameter>
         <x>-40</x>
         <y>-26</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>2000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>251.5</length>
+        <height>578.6</height>
         <diameter>20.1</diameter>
         <x>11</x>
         <y>-18</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>2000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>290.0</length>
+        <height>650.0</height>
         <diameter>20.1</diameter>
         <x>20</x>
         <y>46</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>3000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>198.0</length>
+        <height>527.0</height>
         <diameter>21.2</diameter>
         <x>21</x>
         <y>-28</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     <tube>
         <num>3000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>470.0</length>
+        <height>625</height>
         <diameter>21.2</diameter>
         <x>-26</x>
         <y>3</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>3000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>254.0</length>
+        <height>577.0</height>
         <diameter>21.2</diameter>
         <x>18</x>
         <y>57</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>3000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>467.0</length>
+        <height>597.0</height>
         <diameter>21.2</diameter>
         <x>3</x>
         <y>60</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>3000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>200.0</length>
+        <height>500.0</height>
         <diameter>21.2</diameter>
         <x>9</x>
         <y>-48</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     <tube>
         <num>4000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>360.0</length>
+        <height>680.0</height>
         <diameter>26.5</diameter>
         <x>8</x>
         <y>44</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>4000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>251.5</length>
+        <height>578.6</height>
         <diameter>26.5</diameter>
         <x>15</x>
         <y>-19</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>5000</num>
-        <length>100</length>
-        <height>0</height>
+        <length>300</length>
+        <height>750</height>
         <diameter>32.8</diameter>
         <x>38</x>
         <y>22</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     
     <tube>
         <num>2199</num>
-        <length>100</length>
-        <height>0</height>
+        <length>100.0</length>
+        <height>450.0</height>
         <diameter>21.8</diameter>
         <x>-48</x>
         <y>18</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     
     <tube>
         <num>209</num>
-        <length>100</length>
-        <height>0</height>
+        <length>268.0</length>
+        <height>550.0</height>
         <diameter>21.8</diameter>
         <x>15</x>
         <y>59</y>
         <weight>0</weight>
         <element>15</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
     <tube>
         <num>219</num>
         <length>420.0</length>
-        <height>0.0</height>
+        <height>420.0</height>
         <diameter>18.5</diameter>
         <x>14.5</x>
         <y>31.2</y>
         <weight>65.7</weight>
         <element>12</element>
-        <oc>1</oc>
+        <oc>2</oc>
     </tube>
 
 

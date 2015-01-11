@@ -16,6 +16,8 @@ ofPerson::ofPerson(float _x, float _y, float _freq, int _idNum)
     idNum = _idNum;
 
     frequency = _freq;
+    pX = _x;
+    pY = _y;
     
     isHere = true;
     pipeID = 0;

@@ -43,4 +43,7 @@ void ofPipe::draw(){
     ofSetLineWidth(2);
     ofSetColor(10, 20, 20);
     ofCircle(x, y, radius);
+    if(openClosed==2){
+        //ofDrawBitmapStringHighlight(ofToString(idNum), x,y);
+    }
 }

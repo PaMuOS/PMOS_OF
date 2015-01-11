@@ -57,7 +57,7 @@ void ofApp::setup(){
             cout << "found built-in audio";
         }
 
-        if(info.name == "RME: Fireface 400 (963)"){
+        if(info.name == "Focusrite: Scarlett 18i20 USB"){
             rmeConnected = true;
             deviceID = i;
             numOutputs = 8;
