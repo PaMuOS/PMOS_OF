@@ -1,4 +1,7 @@
-#Required Addons
+#PMOS
+http://pmos.fi/
+
+##Required Addons
 
 - ofxJSON https://github.com/jefftimesten/ofxJSON
 - ofxLibwebsockets https://github.com/labatrockwell/ofxLibwebsockets
