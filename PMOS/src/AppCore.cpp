@@ -380,39 +380,56 @@ void AppCore::update() {
 
 //--------------------------------------------------------------
 void AppCore::draw() {
-    ofBackground(140);
-    bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
-    contourFinder.draw(0, 0, ofGetWidth(), ofGetHeight());
+    if(!grafics){
+        ofBackground(140);
+        bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
+        contourFinder.draw(0, 0, ofGetWidth(), ofGetHeight());
     
-    for (int i = 0; i < TUBE_NUM; i++){
-        allPipes[i]->draw();
-    }
-    string mText = ofToString(mPerson->pipeID) + "/f:" + ofToString(mPerson->frequency) + "/d:" + ofToString(mPerson->diameter) + "/h:" + ofToString(mPerson->height - mPerson->length);
-    ofDrawBitmapStringHighlight(mText, ofGetAppPtr()->mouseX + 5, ofGetAppPtr()->mouseY);
+        for (int i = 0; i < TUBE_NUM; i++){
+            allPipes[i]->draw();
+        }
+        string mText = ofToString(mPerson->pipeID) + "/f:" + ofToString(mPerson->frequency) + "/d:" + ofToString(mPerson->diameter) + "/h:" + ofToString(mPerson->height - mPerson->length);
+        ofDrawBitmapStringHighlight(mText, ofGetAppPtr()->mouseX + 5, ofGetAppPtr()->mouseY);
     
-    ofSetColor(0, 0, 0);
-    ofDrawBitmapStringHighlight(message, 20,ofGetHeight()-40);
-    if(outputState){
-        ofDrawBitmapStringHighlight("stereo audio (press a to switch) ", 20, ofGetHeight()-20);
-    }else{
-        ofDrawBitmapStringHighlight("8-channel audio (press a to switch)", 20,ofGetHeight()-20);
-    }
+        ofSetColor(0, 0, 0);
+        ofDrawBitmapStringHighlight(message, 20,ofGetHeight()-40);
+        if(outputState){
+            ofDrawBitmapStringHighlight("stereo audio (press a to switch) ", 20, ofGetHeight()-20);
+        }else{
+            ofDrawBitmapStringHighlight("8-channel audio (press a to switch)", 20,ofGetHeight()-20);
+        }
     
 
-    for(int i=0; i<currentInput; i++){
-        // draw center of blobs
-        string pText = ofToString(i) + " " + ofToString(persons[i]->pipeID) + " " + ofToString(persons[i]->frequency);
-        ofSetColor(255, 255, 0);
-        ofFill();
-        ofCircle(persons[i]->x, persons[i]->y, 5);
-        ofDrawBitmapStringHighlight(pText, persons[i]->x+5, persons[i]->y-5);
-        ofSetColor(255);
-    }
+        for(int i=0; i<currentInput; i++){
+            // draw center of blobs
+            string pText = ofToString(i) + " " + ofToString(persons[i]->pipeID) + " " + ofToString(persons[i]->frequency);
+            ofSetColor(255, 255, 0);
+            ofFill();
+            ofCircle(persons[i]->x, persons[i]->y, 5);
+            ofDrawBitmapStringHighlight(pText, persons[i]->x+5, persons[i]->y-5);
+            ofSetColor(255);
+        }
     
-    if (!client.isConnected()) {
-        ofDrawBitmapStringHighlight("not connected (s to stop trying)" + ofToString(tryConnecting), 20, ofGetHeight()-60);
-    }else{
-        ofDrawBitmapStringHighlight("connected", 20, ofGetHeight()-60);
+        if (!client.isConnected()) {
+            ofDrawBitmapStringHighlight("not connected (s to stop trying)" + ofToString(tryConnecting), 20, ofGetHeight()-60);
+        }else{
+            ofDrawBitmapStringHighlight("connected", 20, ofGetHeight()-60);
+        }
+    }
+    else if(grafics){
+        ofBackground(0);
+        for (int i = 0; i < TUBE_NUM; i++){
+            allPipes[i]->drawGrafik();
+        }
+        
+        for(int i=0; i<currentInput; i++){
+            
+            ofSetColor(255, 255, 0);
+            ofFill();
+            ofCircle(persons[i]->x, persons[i]->y, 5);
+            
+        }
+        
     }
 
 }
@@ -436,6 +453,8 @@ void AppCore::keyPressed (int key) {
         outputState = !outputState;
     }else if(key=='s'){
         tryConnecting = !tryConnecting;
+    }else if(key=='g'){
+        grafics = !grafics;
     }
 
 }

@@ -47,3 +47,25 @@ void ofPipe::draw(){
         //ofDrawBitmapStringHighlight(ofToString(idNum), x,y);
     }
 }
+
+void ofPipe::drawGrafik(){
+    ofSetLineWidth(1);
+    ofSetColor(255);
+    ofNoFill();
+    if(isHit){
+        ofFill();
+        
+    }else{
+        ofNoFill();
+    }
+    if(openClosed==1){
+        ofCircle(x, y, radius-4);
+        //ofCircle(x, y, radius-8);
+        ofCircle(x, y, radius);
+        //ofSetColor(200);
+    }else{
+        ofCircle(x, y, radius);
+    }
+
+   
+}
