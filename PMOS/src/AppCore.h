@@ -144,4 +144,5 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     private:
         ofPipe** allPipes;
         ofPerson** persons;
+    ofColor** colors;
 };

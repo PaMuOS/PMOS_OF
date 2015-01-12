@@ -49,6 +49,7 @@ void ofPipe::draw(){
 }
 
 void ofPipe::drawGrafik(){
+    ofSetCircleResolution(300);
     ofSetLineWidth(1);
     ofSetColor(255);
     ofNoFill();
@@ -59,7 +60,7 @@ void ofPipe::drawGrafik(){
         ofNoFill();
     }
     if(openClosed==1){
-        ofCircle(x, y, radius-4);
+       // ofCircle(x, y, radius-4);
         //ofCircle(x, y, radius-8);
         ofCircle(x, y, radius);
         //ofSetColor(200);

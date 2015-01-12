@@ -111,7 +111,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     
     allPipes = new ofPipe*[TUBE_NUM]; // an array of pointers for the objects
     persons = new ofPerson*[PERSON_NUM];
-    
+    colors = new ofColor*[PERSON_NUM];
     //the string is printed at the top of the app
     //to give the user some feedback
     message = "loading data.xml";
@@ -177,12 +177,25 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     for(int i = 0; i<PERSON_NUM; i++){
         patches[i] = pd.openPatch("pd/main.pd");
         persons[i] = new ofPerson(0.0,0.0,0.0, i);
+        colors[i] = new ofColor;
     }
     // load a separate patch for the mouse
     mousePatch = pd.openPatch("pd/main.pd");
     mPerson = new ofPerson(0.0,0.0,0.0,0);
     outputState=false;
     tryConnecting=true;
+    
+    colors[0]->setHex(0xfff200);
+    colors[1]->setHex(0xfcb040);
+    colors[2]->setHex(0xbf1e2d);
+    colors[3]->setHex(0xee80b3);
+    colors[4]->setHex(0x662d91);
+    colors[5]->setHex(0x86c654);
+    colors[6]->setHex(0x12572c);
+    colors[7]->setHex(0x25aae1);
+    colors[8]->setHex(0x2d439c);
+    colors[9]->setHex(0x764c28);
+    //colors[10]->setHex(0x939598);
 }
 
 //--------------------------------------------------------------
@@ -424,7 +437,7 @@ void AppCore::draw() {
         
         for(int i=0; i<currentInput; i++){
             
-            ofSetColor(255, 255, 0);
+            ofSetColor(*colors[persons[i]->idNum]);
             ofFill();
             ofCircle(persons[i]->x, persons[i]->y, 5);
             
