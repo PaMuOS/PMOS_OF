@@ -141,6 +141,8 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     
         ofxJSONElement jsonOut;
     
+        ofTrueTypeFont f; 
+    
     private:
         ofPipe** allPipes;
         ofPerson** persons;

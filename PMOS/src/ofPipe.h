@@ -26,6 +26,7 @@ public: // place public functions or variables declarations here
     float length;   
     float height;
     float frequency;
+    float alpha = 255;
     int idNum;      // number of the pipe
     int element;    // element number
     bool isHit;    // is it triggered

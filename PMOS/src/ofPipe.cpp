@@ -51,22 +51,28 @@ void ofPipe::draw(){
 void ofPipe::drawGrafik(){
     ofSetCircleResolution(300);
     ofSetLineWidth(1);
-    ofSetColor(255);
-    ofNoFill();
+    
     if(isHit){
-        ofFill();
+        
+        alpha = 255;
+        
         
     }else{
-        ofNoFill();
+        
+        alpha*=0.8;
+        if(alpha < 0){
+            alpha = 0;
+        }
     }
-    if(openClosed==1){
-       // ofCircle(x, y, radius-4);
-        //ofCircle(x, y, radius-8);
-        ofCircle(x, y, radius);
-        //ofSetColor(200);
-    }else{
-        ofCircle(x, y, radius);
-    }
-
+    ofFill();
+    ofSetColor(255,alpha);
+    ofCircle(x, y, radius);
+    ofNoFill();
+    ofSetColor(255);
+    ofCircle(x, y, radius);
+   /* if(isHit){
+        ofSetColor(0, 255, 0);
+        ofDrawBitmapString(ofToString(frequency), x,y);
+    }*/
    
 }

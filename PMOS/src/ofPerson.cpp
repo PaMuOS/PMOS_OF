@@ -21,6 +21,9 @@ ofPerson::ofPerson(float _x, float _y, float _freq, int _idNum)
     
     isHere = true;
     pipeID = 0;
+    
+    x = ofRandomWidth();
+    y = ofRandomHeight();
 }
 
 void ofPerson::update(){
@@ -38,9 +41,11 @@ void ofPerson::update(){
 void ofPerson::draw(){
     ofFill();
     if(isHere){
-        ofSetColor(255, 80, 80);
+        ofSetColor(255, 0, 0);
     }else{
-        ofSetColor(30, 80, 80);
+        ofSetColor(0);
     }
     ofCircle(x, y, 10);
+    ofSetColor(0, 255, 0);
+    
 }

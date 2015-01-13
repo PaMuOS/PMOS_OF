@@ -194,7 +194,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     colors[6]->setHex(0x12572c);
     colors[7]->setHex(0x25aae1);
     colors[8]->setHex(0x2d439c);
-    colors[9]->setHex(0x764c28);*/
+    colors[9]->setHex(0x764c28);
     
     colors[0]->setHex(0xed3393);
     colors[1]->setHex(0xf59bba);
@@ -206,8 +206,11 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     colors[7]->setHex(0x8cc63f);
     colors[8]->setHex(0x00a79d);
     colors[9]->setHex(0x03c0e3);
+   */
 
     //colors[10]->setHex(0x939598);
+    
+    f.loadFont("Tahoma Bold.ttf", 12);
 }
 
 //--------------------------------------------------------------
@@ -307,10 +310,12 @@ void AppCore::update() {
     
     
     // check if the tracked people are hitting the pipes
-    for(int u = 0; u<currentInput; u++){
+    for(int u = 0; u<PERSON_NUM; u++){ //THISSHIT
         
-        persons[u]->x=blobCenterXmap[u];
-        persons[u]->y=blobCenterYmap[u];
+       // persons[u]->x=blobCenterXmap[u];
+       // persons[u]->y=blobCenterYmap[u];
+        
+        
         persons[u]->frequency=0;
         //persons[u]->diameter=0;   //no need to set these to 0
         //persons[u]->height=0;
@@ -343,7 +348,7 @@ void AppCore::update() {
         oscMessage.clear();
     }
     
-    if(currentInput==0){
+ /*   if(currentInput==0){//THISSHIT
         for (int i = 0; i < PERSON_NUM; i++){
             persons[i]->frequency = 0;
             persons[i]->diameter=0;
@@ -354,10 +359,14 @@ void AppCore::update() {
             persons[i]->y=0;
         }
     }
-    
+    */
    
     
     for (int i = 0; i < PERSON_NUM; i++){
+        
+        persons[i]->x+=ofRandom(-0.2,0.2);//THISSHIT
+        persons[i]->y+=ofRandom(-0.2,0.2);//THISSHIT
+        
         pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
         pd.sendFloat(patches[i].dollarZeroStr()+"-height",persons[i]->height-persons[i]->length);
@@ -453,16 +462,22 @@ void AppCore::draw() {
             allPipes[i]->drawGrafik();
         }
         
-        for(int i=0; i<currentInput; i++){
+        for(int i=0; i<PERSON_NUM; i++){
             
-            ofSetColor(*colors[persons[i]->idNum]);
+            ofSetColor(255,0,0);
             ofFill();
-            ofCircle(persons[i]->x, persons[i]->y, 5);
+            ofCircle(persons[i]->x, persons[i]->y, 10);
             
+            ofSetColor(0, 255, 0);
+            if(persons[i]->frequency>0){
+                f.drawString(ofToString(persons[i]->frequency,2),persons[i]->x, persons[i]->y);
+            }
         }
         
     }
-
+    ofSetColor(0, 255, 0);
+    //cout<<currentInput<<endl;
+    //f.drawString("FUCK DIG", 100, 100);
 }
 
 //--------------------------------------------------------------
