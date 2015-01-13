@@ -125,6 +125,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         bool outputState;
         bool tryConnecting;
         bool grafics = true;
+        bool fullScreen = true;
     
         //-------------------------------------------------------
     

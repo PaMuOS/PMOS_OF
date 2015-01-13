@@ -508,6 +508,8 @@ void AppCore::keyPressed (int key) {
         tryConnecting = !tryConnecting;
     }else if(key=='g'){
         grafics = !grafics;
+        fullScreen = !fullScreen;
+        ofSetFullscreen(fullScreen);
     }
 
 }
