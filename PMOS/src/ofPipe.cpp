@@ -65,7 +65,7 @@ void ofPipe::drawGrafik(){
         }
     }
     ofFill();
-    ofSetColor(255,alpha);
+    ofSetColor(0,255,0,alpha);
     ofCircle(x, y, radius);
     ofNoFill();
     ofSetColor(255);

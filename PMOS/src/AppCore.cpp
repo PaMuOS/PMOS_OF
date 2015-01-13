@@ -209,8 +209,9 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
    */
 
     //colors[10]->setHex(0x939598);
-    
-    f.loadFont("Tahoma Bold.ttf", 12);
+    ofTrueTypeFont::setGlobalDpi(72);
+    f = *new ofTrueTypeFont;
+    f.loadFont("Tahoma Bold.ttf", 12,true,true);
 }
 
 //--------------------------------------------------------------
@@ -310,10 +311,9 @@ void AppCore::update() {
     
     
     // check if the tracked people are hitting the pipes
-    for(int u = 0; u<PERSON_NUM; u++){ //THISSHIT
-        
-       // persons[u]->x=blobCenterXmap[u];
-       // persons[u]->y=blobCenterYmap[u];
+    for(int u = 0; u<currentInput; u++){
+        persons[u]->x=blobCenterXmap[u];
+        persons[u]->y=blobCenterYmap[u];
         
         
         persons[u]->frequency=0;
@@ -332,6 +332,10 @@ void AppCore::update() {
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
             if(dist<allPipes[i]->radius){
+                
+                persons[u]->x=allPipes[i]->x;//THISSHIT
+                persons[u]->y=allPipes[i]->y;//THISSHIT
+                
                 persons[u]->frequency=allPipes[i]->frequency;
                 persons[u]->diameter=allPipes[i]->radius;
                 persons[u]->height=allPipes[i]->height;
@@ -348,7 +352,7 @@ void AppCore::update() {
         oscMessage.clear();
     }
     
- /*   if(currentInput==0){//THISSHIT
+    if(currentInput==0){
         for (int i = 0; i < PERSON_NUM; i++){
             persons[i]->frequency = 0;
             persons[i]->diameter=0;
@@ -359,13 +363,13 @@ void AppCore::update() {
             persons[i]->y=0;
         }
     }
-    */
+    
    
     
     for (int i = 0; i < PERSON_NUM; i++){
         
-        persons[i]->x+=ofRandom(-0.2,0.2);//THISSHIT
-        persons[i]->y+=ofRandom(-0.2,0.2);//THISSHIT
+      //  persons[i]->x+=ofRandom(-0.2,0.2);//THISSHIT
+      //  persons[i]->y+=ofRandom(-0.2,0.2);//THISSHIT
         
         pd.sendFloat(patches[i].dollarZeroStr()+"-frequency",persons[i]->frequency);
         pd.sendFloat(patches[i].dollarZeroStr()+"-openClosed",persons[i]->openClosed);
@@ -463,21 +467,24 @@ void AppCore::draw() {
         }
         
         for(int i=0; i<PERSON_NUM; i++){
+            if(persons[i]->x>0){
+                ofSetColor(0,255,0);
+                ofFill();
+                ofCircle(persons[i]->x, persons[i]->y, 10);
+            }
             
-            ofSetColor(255,0,0);
-            ofFill();
-            ofCircle(persons[i]->x, persons[i]->y, 10);
             
-            ofSetColor(0, 255, 0);
             if(persons[i]->frequency>0){
-                f.drawString(ofToString(persons[i]->frequency,2),persons[i]->x, persons[i]->y);
+                ofRectangle rect = f.getStringBoundingBox(ofToString(persons[i]->frequency,2), 0, 0);
+                ofSetColor(0);
+                ofRect(persons[i]->x-rect.width-2.5, persons[i]->y-2.5,rect.width+5,rect.height+5);
+                ofSetColor(0, 255, 0);
+                f.drawString(ofToString(persons[i]->frequency,2),persons[i]->x-rect.width, persons[i]->y+rect.height);
             }
         }
         
     }
-    ofSetColor(0, 255, 0);
-    //cout<<currentInput<<endl;
-    //f.drawString("FUCK DIG", 100, 100);
+    
 }
 
 //--------------------------------------------------------------

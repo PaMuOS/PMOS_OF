@@ -124,7 +124,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         int mFreq;
         bool outputState;
         bool tryConnecting;
-        bool grafics;
+        bool grafics = true;
     
         //-------------------------------------------------------
     
