@@ -109,7 +109,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         
         int maxInput = 30;
         int currentInput;
-        int thresholdVal = 70;
+        int thresholdVal = 30;
    
         vector<ofxCvBlob> blobs;
         vector<float> blobCenterX;

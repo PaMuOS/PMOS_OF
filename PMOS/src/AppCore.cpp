@@ -86,12 +86,12 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     kinect.listDevices();
     kinect.init();
    // kinect.open("A00365917784047A");// the one in the ceiling
-    kinect.open("A00364A11700045A");//the other one
+    kinect.open("0000000000000000");//the other one
     kinect.setCameraTiltAngle(0);
     grayImage.allocate(kinect.width, kinect.height);
 
     kinect1.init();
-    kinect1.open("0000000000000000");
+    kinect1.open("A00364A11700045A");
     kinect1.setCameraTiltAngle(0);
     grayImage1.allocate(kinect1.width, kinect1.height);
     
@@ -228,10 +228,10 @@ void AppCore::update() {
         grayImage1.setFromPixels(kinect1.getDepthPixels(), kinect1.width, kinect1.height);
         
         GrayPixel = grayImage.getPixelsRef();
-        GrayPixel.rotate90(3);
+        GrayPixel.rotate90(1);
         
         GrayPixel1 = grayImage1.getPixelsRef();
-        GrayPixel1.rotate90(3);
+        GrayPixel1.rotate90(1);
         
         for(int i=0; i<640; i++){
             memcpy(combinedVideo + (i*960), GrayPixel.getPixels()+(i*480), 480);
@@ -240,7 +240,7 @@ void AppCore::update() {
         }
         
         bothKinects.threshold(thresholdVal);
-        contourFinder.findContours(bothKinects, 150, 50000, maxInput, false);
+        contourFinder.findContours(bothKinects, 500, 50000, maxInput, false);
         
     }
     
@@ -268,6 +268,10 @@ void AppCore::update() {
     
     if(currentInput>PERSON_NUM){
         currentInput=PERSON_NUM;
+    }
+    
+    for (int i = 0; i < PERSON_NUM; i++){
+        persons[i]->frequency = 0;
     }
     
     // reset the pipes and check the mouse
@@ -299,6 +303,8 @@ void AppCore::update() {
     m.addFloatArg(mPerson->openClosed);             // oc
     b.addMessage(m);
     m.clear();
+    
+    
     
     // check if the tracked people are hitting the pipes
     for(int u = 0; u<currentInput; u++){
