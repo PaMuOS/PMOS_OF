@@ -407,7 +407,7 @@ void AppCore::update() {
         jsonOut["diameter"] = ofToString(mPerson->diameter);
         jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
 
-        if (client.isConnected()) {
+        if (client.isConnected() && ofGetFrameNum()%5==0) {
             client.send(ofToString(jsonOut));
         }
     }
@@ -461,14 +461,14 @@ void AppCore::draw() {
         }
     }
     else if(grafics){
-        ofBackground(0);
+        ofBackground(255);
         for (int i = 0; i < TUBE_NUM; i++){
             allPipes[i]->drawGrafik();
         }
         
-        for(int i=0; i<PERSON_NUM; i++){
+        for(int i=0; i<currentInput; i++){
             if(persons[i]->x>0){
-                ofSetColor(0,255,0);
+                ofSetColor(255,123,172);
                 ofFill();
                 ofCircle(persons[i]->x, persons[i]->y, 10);
             }
@@ -477,8 +477,8 @@ void AppCore::draw() {
             if(persons[i]->frequency>0){
                 ofRectangle rect = f.getStringBoundingBox(ofToString(persons[i]->frequency,2), 0, 0);
                 ofSetColor(0);
-                ofRect(persons[i]->x-rect.width-2.5, persons[i]->y-2.5,rect.width+5,rect.height+5);
-                ofSetColor(0, 255, 0);
+                ofRect(persons[i]->x-rect.width-5, persons[i]->y-5,rect.width+10,rect.height+10);
+                ofSetColor(255  );
                 f.drawString(ofToString(persons[i]->frequency,2),persons[i]->x-rect.width, persons[i]->y+rect.height);
             }
         }

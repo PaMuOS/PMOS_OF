@@ -50,7 +50,7 @@ void ofPipe::draw(){
 
 void ofPipe::drawGrafik(){
     ofSetCircleResolution(300);
-    ofSetLineWidth(1);
+    ofSetLineWidth(2);
     
     if(isHit){
         
@@ -65,10 +65,10 @@ void ofPipe::drawGrafik(){
         }
     }
     ofFill();
-    ofSetColor(0,255,0,alpha);
+    ofSetColor(255,123,172,alpha);
     ofCircle(x, y, radius);
     ofNoFill();
-    ofSetColor(255);
+    ofSetColor(0);
     ofCircle(x, y, radius);
    /* if(isHit){
         ofSetColor(0, 255, 0);
