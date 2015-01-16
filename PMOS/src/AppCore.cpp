@@ -136,7 +136,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         float y = XML.getValue("x",0.0);
         
         // rotate
-        float angle = ofDegToRad(-20);
+        float angle = ofDegToRad(-25);
         float rX = (x*cos(angle) - y*sin(angle));
         float rY = (x*sin(angle) + y*cos(angle));
         
@@ -159,6 +159,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         newXML.addTag("tube");
         newXML.pushTag("tube", i);
         newXML.addValue("num", idNum);
+        newXML.addValue("frequency", frequency);
         newXML.addValue("length", length);
         newXML.addValue("height", height);
         newXML.addValue("diameter", radius);
@@ -408,7 +409,7 @@ void AppCore::update() {
         jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
 
         if (client.isConnected() && ofGetFrameNum()%5==0) {
-            client.send(ofToString(jsonOut));
+            //client.send(ofToString(jsonOut));
         }
     }
     mPerson->pX = mPerson->x;
@@ -419,7 +420,7 @@ void AppCore::update() {
         allPipes[i]->update();
     }
     */
-
+    ofSetFullscreen(fullScreen);
 }
 
 //--------------------------------------------------------------
