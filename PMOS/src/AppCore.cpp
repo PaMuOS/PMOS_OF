@@ -213,6 +213,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     ofTrueTypeFont::setGlobalDpi(72);
     f = *new ofTrueTypeFont;
     f.loadFont("Tahoma Bold.ttf", 12,true,true);
+    ofSetFullscreen(fullScreen);
 }
 
 //--------------------------------------------------------------
@@ -411,6 +412,7 @@ void AppCore::update() {
         if (client.isConnected() && ofGetFrameNum()%5==0) {
             //client.send(ofToString(jsonOut));
         }
+        //cout << ofToString(jsonOut);
     }
     mPerson->pX = mPerson->x;
     mPerson->pY = mPerson->y;
@@ -420,7 +422,7 @@ void AppCore::update() {
         allPipes[i]->update();
     }
     */
-    ofSetFullscreen(fullScreen);
+    
 }
 
 //--------------------------------------------------------------
