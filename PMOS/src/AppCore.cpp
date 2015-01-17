@@ -310,8 +310,6 @@ void AppCore::update() {
     b.addMessage(m);
     m.clear();
     
-    
-    
     // check if the tracked people are hitting the pipes
     for(int u = 0; u<currentInput; u++){
         persons[u]->x=blobCenterXmap[u];
@@ -348,6 +346,22 @@ void AppCore::update() {
             }
         }
         
+        
+        if(persons[u]->pX != persons[u]->x || persons[u]->pY != persons[u]->y){
+            jsonPeople[u]["channel"] = "0";
+            jsonPeople[u]["timestamp"] = ofToString(timeStamp);
+            jsonPeople[u]["x"] = ofToString(ofMap(mPerson->x,0,ofGetWidth(),0,1));
+            jsonPeople[u]["y"] = ofToString(ofMap(mPerson->y,0,ofGetHeight(),0,1));
+            jsonPeople[u]["num"] = ofToString(mPerson->pipeID);
+            jsonPeople[u]["frequency"] = ofToString(mPerson->frequency);
+            jsonPeople[u]["closed"] = ofToString(mPerson->openClosed);
+            jsonPeople[u]["diameter"] = ofToString(mPerson->diameter);
+            jsonPeople[u]["height"] = ofToString(mPerson->height-mPerson->length);
+        }
+        if (client.isConnected() && ofGetFrameNum()%5==0) {
+            //client.send(ofToString(jsonPeople[u]));
+        }
+
         oscMessage.addFloatArg(persons[u]->pipeID); // tubeID
         oscMessage.addFloatArg(persons[u]->frequency); // frequency
         b.addMessage(oscMessage);
@@ -366,7 +380,8 @@ void AppCore::update() {
         }
     }
     
-   
+    
+    // Send stuff to the PD patches
     
     for (int i = 0; i < PERSON_NUM; i++){
         
@@ -382,6 +397,8 @@ void AppCore::update() {
         pd.sendFloat(patches[i].dollarZeroStr()+"-y",ofMap(persons[i]->x,0,ofGetWidth(),1,0));
         pd.sendFloat(patches[i].dollarZeroStr()+"-x",ofMap(persons[i]->y,0,ofGetHeight(),1,0));
         
+        persons[i]->pX = persons[i]->x;
+        persons[i]->pY = persons[i]->y;
     }
     
     // sending OSC

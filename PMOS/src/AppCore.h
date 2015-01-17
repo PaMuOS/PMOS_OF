@@ -141,6 +141,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         void onBroadcast( ofxLibwebsockets::Event& args );
     
         ofxJSONElement jsonOut;
+        ofxJSONElement jsonPeople[PERSON_NUM];
     
         ofTrueTypeFont f; 
     
