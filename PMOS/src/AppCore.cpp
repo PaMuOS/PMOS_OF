@@ -460,7 +460,7 @@ void AppCore::draw() {
         }
     }
     else if(grafics){
-        ofBackground(255);
+        ofBackground(0);
         for (int i = 0; i < TUBE_NUM; i++){
             allPipes[i]->drawGrafik();
         }

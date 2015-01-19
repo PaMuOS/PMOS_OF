@@ -59,12 +59,14 @@ void ofPipe::drawGrafik(){
         
     }else{
         
-        alpha*=0.8;
+        alpha*=0.9;
         if(alpha < 0){
             alpha = 0;
         }
     }
     ofFill();
+    ofSetColor(255);
+    ofCircle(x, y, radius);
     ofSetColor(255,123,172,alpha);
     ofCircle(x, y, radius);
     ofNoFill();
