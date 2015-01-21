@@ -193,16 +193,22 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     f = *new ofTrueTypeFont;
     f.loadFont("Tahoma Bold.ttf", 12,true,true);
     ofSetFullscreen(fullScreen);
+    
+    threadedObject.start();
+
+    
 }
 
 //--------------------------------------------------------------
 void AppCore::update() {
-    if (!client.isConnected() && tryConnecting) {
+    if (!bServerConnected && tryConnecting) {
         if(ofGetFrameNum()%300==299){
             cout<<"trying to connect..."<<endl;
             client.connect(options);
         }
     }
+    
+    bServerConnected = threadedObject.bServerConnected;
     
     kinect.update();
     kinect1.update();
@@ -337,7 +343,7 @@ void AppCore::update() {
             jsonPeople[u]["diameter"] = ofToString(mPerson->diameter);
             jsonPeople[u]["height"] = ofToString(mPerson->height-mPerson->length);
         }
-        if (client.isConnected() && ofGetFrameNum()%5==0) {
+        if (bServerConnected && ofGetFrameNum()%5==0) {
             //client.send(ofToString(jsonPeople[u]));
         }
 
@@ -394,6 +400,7 @@ void AppCore::update() {
     pd.sendFloat(mousePatch.dollarZeroStr()+"-x",ofMap(mPerson->y,0,ofGetHeight(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-selectOutput",outputState);
     // WEBSOCKET STUFF
+    /*
     if(mPerson->pX != mPerson->x || mPerson->pY != mPerson->y){
         jsonOut["channel"] = "0";
         jsonOut["timestamp"] = ofToString(timeStamp);
@@ -405,11 +412,12 @@ void AppCore::update() {
         jsonOut["diameter"] = ofToString(mPerson->diameter);
         jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
 
-        if (client.isConnected() && ofGetFrameNum()%5==0) {
-            //client.send(ofToString(jsonOut));
+        if (bServerConnected && ofGetFrameNum()%5==0) {
+            client.send(ofToString(jsonOut));
         }
         //cout << ofToString(jsonOut);
     }
+     */
     mPerson->pX = mPerson->x;
     mPerson->pY = mPerson->y;
     /*
@@ -453,7 +461,7 @@ void AppCore::draw() {
             ofSetColor(255);
         }
     
-        if (!client.isConnected()) {
+        if (!bServerConnected) {
             ofDrawBitmapStringHighlight("not connected (s to stop trying)" + ofToString(tryConnecting), 20, ofGetHeight()-60);
         }else{
             ofDrawBitmapStringHighlight("connected", 20, ofGetHeight()-60);

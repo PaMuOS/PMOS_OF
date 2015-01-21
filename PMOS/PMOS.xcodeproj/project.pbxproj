@@ -253,6 +253,7 @@
 		211078401A13774D001836F6 /* vbap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vbap.c; sourceTree = "<group>"; };
 		211078411A13774D001836F6 /* vbap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vbap.h; sourceTree = "<group>"; };
 		211078421A1377B2001836F6 /* Externals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Externals.h; sourceTree = "<group>"; };
+		211EEA9F1A6EC9A800026B46 /* threadedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = threadedObject.h; sourceTree = "<group>"; };
 		21C3DEB11A14B54800ED0F2D /* fts_to_pd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fts_to_pd.h; sourceTree = "<group>"; };
 		21C3DEB21A14B54800ED0F2D /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		21C3DEB31A14B54800ED0F2D /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -1550,6 +1551,7 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				211EEA9F1A6EC9A800026B46 /* threadedObject.h */,
 				211078421A1377B2001836F6 /* Externals.h */,
 			);
 			path = src;

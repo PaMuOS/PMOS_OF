@@ -23,7 +23,7 @@
 #include "ofxKinect.h"
 #include "ofxLibwebsockets.h"
 #include "ofxJSON.h"
-
+#include "threadedObject.h"
 #define HOST "localhost"
 #define PORT 12345
 #define TUBE_NUM 569
@@ -128,7 +128,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         bool fullScreen = true;
     
         //-------------------------------------------------------
-    
+       
         ofxLibwebsockets::Client client;
         ofxLibwebsockets::ClientOptions options;
     
@@ -143,10 +143,15 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         ofxJSONElement jsonOut;
         ofxJSONElement jsonPeople[PERSON_NUM];
     
-        ofTrueTypeFont f; 
+        ofTrueTypeFont f;
+    
+    ThreadedObject threadedObject;
+    bool bServerConnected;
     
     private:
         ofPipe** allPipes;
         ofPerson** persons;
     ofColor** colors;
 };
+
+
