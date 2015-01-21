@@ -195,7 +195,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     f = *new ofTrueTypeFont;
     f.loadFont("Tahoma Bold.ttf", 12,true,true);
     ofSetFullscreen(fullScreen);
-    threadedObject.start();
+    //threadedObject.start();
 
 }
 
@@ -209,7 +209,7 @@ void AppCore::update() {
         }
     }
     
-    bServerConnected = threadedObject.bServerConnected;
+    //bServerConnected = threadedObject.bServerConnected;
     
     kinect.update();
     kinect1.update();
@@ -357,8 +357,9 @@ void AppCore::update() {
             jsonPeople[u]["diameter"] = ofToString(ofRandom(30));
             jsonPeople[u]["height"] = ofToString(ofRandom(500));
         }
-        if (ofGetFrameNum()%5==0 && bServerConnected) {
-            client.send(ofToString(jsonPeople[u]));
+        if (ofGetFrameNum()%5==0 && client.isConnected() && isWritable) {
+            shouldSend = true;
+            //client.send(ofToString(jsonPeople[u]));
             //cout << ofToString(jsonPeople[u]);
 
         }
@@ -428,9 +429,10 @@ void AppCore::update() {
         jsonOut["diameter"] = ofToString(mPerson->diameter);
         jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
 
-        if (bServerConnected && ofGetFrameNum()%5==0) {
+        if (client.isConnected() && ofGetFrameNum()%5==0 && isWritable) {
 
-              client.send(ofToString(jsonOut));
+            //client.send(ofToString(jsonOut));
+            shouldSend = true;
 
         }
         //cout << ofToString(jsonOut);
@@ -479,7 +481,7 @@ void AppCore::draw() {
             ofSetColor(255);
         }
     
-        if (!bServerConnected) {
+        if (!client.isConnected()) {
             ofDrawBitmapStringHighlight("not connected (s to stop trying)" + ofToString(tryConnecting), 20, ofGetHeight()-60);
         }else{
             ofDrawBitmapStringHighlight("connected", 20, ofGetHeight()-60);
@@ -716,7 +718,19 @@ void AppCore::onError( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void AppCore::onIdle( ofxLibwebsockets::Event& args ){
-    cout<<"on idle"<<endl;
+    //cout<<"on idle"<<endl;
+    isWritable=true;
+    if(shouldSend){
+        for (int u = 0; u<currentInput; u++) {
+            client.send(ofToString(jsonPeople[u]));
+        }
+        client.send(ofToString(jsonOut));
+        
+        cout << "sending some shit" <<endl;
+        isWritable=false;
+        shouldSend=false;
+    }
+
 }
 
 //--------------------------------------------------------------
