@@ -53,7 +53,7 @@ public:
                 
                     unlock();
 
-                    sleep(500);
+                    sleep(100);
                 }else
                 {
                     // If we reach this else statement, it means that we could not

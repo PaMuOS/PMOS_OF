@@ -81,9 +81,11 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     //Patch patch = pd.openPatch("pd/somename.pd");
     //cout << patch << endl;
     //----------------------------------- PD END-------------------------------------------
-    
+
     //----------------------------------- KINECT START -------------------------------------------
+    cout << "List Kinects:" << endl;
     kinect.listDevices();
+    cout << "Done Listing:" << endl;
     kinect.init();
    // kinect.open("A00365917784047A");// the one in the ceiling
     kinect.open("0000000000000000");//the other one
