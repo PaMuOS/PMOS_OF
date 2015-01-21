@@ -400,7 +400,7 @@ void AppCore::update() {
     pd.sendFloat(mousePatch.dollarZeroStr()+"-x",ofMap(mPerson->y,0,ofGetHeight(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-selectOutput",outputState);
     // WEBSOCKET STUFF
-    /*
+    
     if(mPerson->pX != mPerson->x || mPerson->pY != mPerson->y){
         jsonOut["channel"] = "0";
         jsonOut["timestamp"] = ofToString(timeStamp);
@@ -417,7 +417,7 @@ void AppCore::update() {
         }
         //cout << ofToString(jsonOut);
     }
-     */
+    
     mPerson->pX = mPerson->x;
     mPerson->pY = mPerson->y;
     /*
@@ -495,7 +495,10 @@ void AppCore::draw() {
 }
 
 //--------------------------------------------------------------
-void AppCore::exit() {}
+void AppCore::exit() {
+    threadedObject.stop();
+    threadedObject.stopThread();
+}
 
 //--------------------------------------------------------------
 void AppCore::playTone(int pitch) {
