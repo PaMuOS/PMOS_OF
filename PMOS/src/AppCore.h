@@ -126,9 +126,11 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         bool tryConnecting;
         bool grafics = true;
         bool fullScreen = true;
-        bool testmode = false;
+        bool testmode = true;
         bool isWritable;
         bool shouldSend;
+        bool startChecking = false;
+        int conTimer = 0;
     
         //-------------------------------------------------------
        
