@@ -126,6 +126,7 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         bool tryConnecting;
         bool grafics = true;
         bool fullScreen = true;
+        bool testmode = true;
     
         //-------------------------------------------------------
        
@@ -139,14 +140,15 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         void onIdle( ofxLibwebsockets::Event& args );
         void onMessage( ofxLibwebsockets::Event& args );
         void onBroadcast( ofxLibwebsockets::Event& args );
+        void onError( ofxLibwebsockets::Event& args );
     
         ofxJSONElement jsonOut;
         ofxJSONElement jsonPeople[PERSON_NUM];
     
         ofTrueTypeFont f;
-    
-    ThreadedObject threadedObject;
     bool bServerConnected;
+    ThreadedObject threadedObject;
+
     
     private:
         ofPipe** allPipes;

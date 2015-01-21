@@ -65,12 +65,12 @@ void ofPipe::drawGrafik(){
         }
     }
     ofFill();
-    ofSetColor(255);
+    ofSetColor(10);
     ofCircle(x, y, radius);
     ofSetColor(255,123,172,alpha);
     ofCircle(x, y, radius);
     ofNoFill();
-    ofSetColor(0);
+    ofSetColor(200);
     ofCircle(x, y, radius);
    /* if(isHit){
         ofSetColor(0, 255, 0);

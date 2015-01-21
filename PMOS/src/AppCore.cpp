@@ -42,8 +42,8 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     // ...so ka_time just says "check if alive when you want" instead of "check if
     // alive after X seconds"
     //options.ka_time     = 1;
-    //options.ka_probes   = 50;
-    //options.ka_interval = 5;
+    //options.ka_probes   = 0;
+    //options.ka_interval = 0;
     
     // 4 - connect
     client.connect(options);
@@ -144,7 +144,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         // map to the of window size
         float mult = 6;
         x = (rX * mult + ofGetWidth() / 2) - 50;
-        y = rY * mult + ofGetHeight() / 2;
+        y = (rY * mult + ofGetHeight() / 2) + 40;
         
         float radius = XML.getValue("diameter",0.0 ) / 1.8;
         float length = XML.getValue("length",0.0 );
@@ -193,15 +193,14 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     f = *new ofTrueTypeFont;
     f.loadFont("Tahoma Bold.ttf", 12,true,true);
     ofSetFullscreen(fullScreen);
-    
     threadedObject.start();
 
-    
 }
 
 //--------------------------------------------------------------
 void AppCore::update() {
-    if (!bServerConnected && tryConnecting) {
+
+    if (tryConnecting && !client.isConnected()) {
         if(ofGetFrameNum()%300==299){
             cout<<"trying to connect..."<<endl;
             client.connect(options);
@@ -331,20 +330,35 @@ void AppCore::update() {
             }
         }
         
-        
-        if(persons[u]->pX != persons[u]->x || persons[u]->pY != persons[u]->y){
-            jsonPeople[u]["channel"] = "0";
-            jsonPeople[u]["timestamp"] = ofToString(timeStamp);
-            jsonPeople[u]["x"] = ofToString(ofMap(mPerson->x,0,ofGetWidth(),0,1));
-            jsonPeople[u]["y"] = ofToString(ofMap(mPerson->y,0,ofGetHeight(),0,1));
-            jsonPeople[u]["num"] = ofToString(mPerson->pipeID);
-            jsonPeople[u]["frequency"] = ofToString(mPerson->frequency);
-            jsonPeople[u]["closed"] = ofToString(mPerson->openClosed);
-            jsonPeople[u]["diameter"] = ofToString(mPerson->diameter);
-            jsonPeople[u]["height"] = ofToString(mPerson->height-mPerson->length);
+        if(!testmode){
+            if(persons[u]->pX != persons[u]->x || persons[u]->pY != persons[u]->y){
+                jsonPeople[u]["channel"] = ofToString(u);
+                jsonPeople[u]["timestamp"] = ofToString(timeStamp);
+                jsonPeople[u]["x"] = ofToString(ofMap(mPerson->x,0,ofGetWidth(),0,1));
+                jsonPeople[u]["y"] = ofToString(ofMap(mPerson->y,0,ofGetHeight(),0,1));
+                jsonPeople[u]["num"] = ofToString(mPerson->pipeID);
+                jsonPeople[u]["frequency"] = ofToString(mPerson->frequency);
+                jsonPeople[u]["closed"] = ofToString(mPerson->openClosed);
+                jsonPeople[u]["diameter"] = ofToString(mPerson->diameter);
+                jsonPeople[u]["height"] = ofToString(mPerson->height-mPerson->length);
+            }
         }
-        if (bServerConnected && ofGetFrameNum()%5==0) {
-            //client.send(ofToString(jsonPeople[u]));
+        
+        if(testmode){
+            jsonPeople[u]["channel"] = ofToString(u);
+            jsonPeople[u]["timestamp"] = ofToString(timeStamp);
+            jsonPeople[u]["x"] = ofToString(ofRandom(1.0));
+            jsonPeople[u]["y"] = ofToString(ofRandom(1.0));
+            jsonPeople[u]["num"] = ofToString(ofRandom(1000));
+            jsonPeople[u]["frequency"] = ofToString(ofRandom(300));
+            jsonPeople[u]["closed"] = ofToString(0);
+            jsonPeople[u]["diameter"] = ofToString(ofRandom(30));
+            jsonPeople[u]["height"] = ofToString(ofRandom(500));
+        }
+        if (ofGetFrameNum()%5==0 && bServerConnected) {
+            client.send(ofToString(jsonPeople[u]));
+            //cout << ofToString(jsonPeople[u]);
+
         }
 
         oscMessage.addFloatArg(persons[u]->pipeID); // tubeID
@@ -402,7 +416,7 @@ void AppCore::update() {
     // WEBSOCKET STUFF
     
     if(mPerson->pX != mPerson->x || mPerson->pY != mPerson->y){
-        jsonOut["channel"] = "0";
+        jsonOut["channel"] = "11";
         jsonOut["timestamp"] = ofToString(timeStamp);
         jsonOut["x"] = ofToString(ofMap(mPerson->x,0,ofGetWidth(),0,1));
         jsonOut["y"] = ofToString(ofMap(mPerson->y,0,ofGetHeight(),0,1));
@@ -413,7 +427,9 @@ void AppCore::update() {
         jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
 
         if (bServerConnected && ofGetFrameNum()%5==0) {
-            client.send(ofToString(jsonOut));
+
+              client.send(ofToString(jsonOut));
+
         }
         //cout << ofToString(jsonOut);
     }
@@ -496,7 +512,7 @@ void AppCore::draw() {
 
 //--------------------------------------------------------------
 void AppCore::exit() {
-    threadedObject.stop();
+
     threadedObject.stopThread();
 }
 
@@ -689,6 +705,11 @@ void AppCore::onOpen( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void AppCore::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppCore::onError( ofxLibwebsockets::Event& args ){
+    cout<<"on error "<<endl;
 }
 
 //--------------------------------------------------------------

@@ -40,8 +40,7 @@ public:
             while(isThreadRunning()) {
                 if(lock()){
                
-                    string pingStr = (string)"ping -c 1 -t 1 " + "8.8.8.8" ;
-                    
+                    string pingStr = (string)"ping -c 1 -t 1 " + "pmos.fi" ;
                     int flag = system( pingStr.c_str());
                     
                     if(flag == 0){
@@ -53,7 +52,8 @@ public:
                     //cout << bServerConnected << endl;
                 
                     unlock();
-                    sleep(100);
+
+                    sleep(500);
                 }else
                 {
                     // If we reach this else statement, it means that we could not
