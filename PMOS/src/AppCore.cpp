@@ -527,7 +527,7 @@ void AppCore::draw() {
 //--------------------------------------------------------------
 void AppCore::exit() {
 
-    threadedObject.stopThread();
+    //threadedObject.stopThread();
 }
 
 //--------------------------------------------------------------
@@ -720,6 +720,7 @@ void AppCore::onOpen( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void AppCore::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
+    startChecking = false;
 }
 
 //--------------------------------------------------------------
