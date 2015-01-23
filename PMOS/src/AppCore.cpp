@@ -32,7 +32,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     options = ofxLibwebsockets::defaultClientOptions();
     
     // 2 - set basic params
-    options.host = "pmos-website.jit.su";
+    //options.host = "pmos-website.jit.su";
     //options.host = "echo.websocket.org";
     //options.host = "localhost";
     //options.port = 9092;
@@ -46,11 +46,11 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     //options.ka_interval = 0;
     
     // 4 - connect
-    client.connect(options);
+    //client.connect(options);
     
     ofSetLogLevel(OF_LOG_ERROR);
     
-    client.addListener(this);
+    //client.addListener(this);
     
     //----------------------------------- WEBSOCKET END -------------------------------------------
     
@@ -83,11 +83,12 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     //----------------------------------- PD END-------------------------------------------
 
     //----------------------------------- KINECT START -------------------------------------------
+    //while(kinect.numAvailableDevices()== 0){
     cout << "List Kinects:" << endl;
     kinect.listDevices();
+    //}
     cout << "Done Listing:" << endl;
     kinect.init();
-   // kinect.open("A00365917784047A");// the one in the ceiling
     kinect.open("0000000000000000");//the other one
     kinect.setCameraTiltAngle(0);
     grayImage.allocate(kinect.width, kinect.height);
@@ -195,28 +196,36 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     f = *new ofTrueTypeFont;
     f.loadFont("Tahoma Bold.ttf", 12,true,true);
     ofSetFullscreen(fullScreen);
-    //threadedObject.start();
-    client.isWritable(false);
-
+    ofHideCursor();
 }
 
 //--------------------------------------------------------------
 void AppCore::update() {
-    if(startChecking){
-        client.isWritable(true);
-    }else{
-        client.isWritable(false);
-    }
-    //cout << o<< endl;
-    
-    if (tryConnecting && !client.isConnected()) {
+       if (tryConnecting && !client.isConnected()) {
         if(ofGetFrameNum()%300==299){
-            cout<<"trying to connect..."<<endl;
-            client.connect(options);
+            //cout<<"trying to connect..."<<endl;
+            //client.connect(options);
         }
     }
     
     //bServerConnected = threadedObject.bServerConnected;
+    
+    // Make sure the Kinects are connected
+    if(!kinect.isConnected()){
+        if(kinect.numTotalDevices() !=0){
+            kinect.init();
+            kinect.open("0000000000000000");
+            kinect.setCameraTiltAngle(0);
+        }
+    }
+    if (!kinect1.isConnected()){
+        if(kinect1.numTotalDevices() !=0){
+            kinect1.init();
+            kinect1.open("A00364A11700045A");
+            kinect1.setCameraTiltAngle(0);
+        }
+    }
+    ////////////////////////////////////////////////////
     
     kinect.update();
     kinect1.update();
@@ -276,12 +285,13 @@ void AppCore::update() {
     // reset the pipes and check the mouse
     mPerson->pipeID = 0;
     mPerson->frequency=0;
+    
     ofxOscMessage m;
     m.setAddress("/mouse");
-    m.addIntArg(timeStamp); // timestamp
-    m.addFloatArg(0); // userID ???
-    m.addFloatArg(mPerson->x); // x
-    m.addFloatArg(mPerson->y); // y
+    m.addFloatArg(0);                                       // channel
+    m.addStringArg(ofToString(timeStamp));                  // timestamp
+    m.addFloatArg(ofMap(mPerson->x,0,ofGetWidth(),0,1));    // x
+    m.addFloatArg(ofMap(mPerson->y,0,ofGetHeight(),0,1));   // y
     for (int i = 0; i < TUBE_NUM; i++){
         allPipes[i]->isHit=false;
         float mouseDist = ofDist(allPipes[i]->x,allPipes[i]->y,mPerson->x,mPerson->y);
@@ -298,36 +308,31 @@ void AppCore::update() {
     m.addFloatArg(mPerson->pipeID);                 // tubeID
     m.addFloatArg(mPerson->frequency);              // frequency
     m.addFloatArg(mPerson->diameter);               // diameter
-    m.addFloatArg(mPerson->height-mPerson->length); // leng
-    m.addFloatArg(mPerson->openClosed);             // oc
-    b.addMessage(m);
-    m.clear();
+    
+    
+    if(ofGetFrameNum()%2==0){
+        //sender.sendMessage(m);
+        m.clear();
+    }
+    //b.addMessage(m);
+    
     
     // check if the tracked people are hitting the pipes
     for(int u = 0; u<currentInput; u++){
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
-        
-        
         persons[u]->frequency=0;
         //persons[u]->diameter=0;   //no need to set these to 0
         //persons[u]->height=0;
         //persons[u]->length=0;
         //persons[u]->openClosed=0;
         
-        ofxOscMessage oscMessage;
-        oscMessage.setAddress("/messages/" + ofToString(u));
-        oscMessage.addIntArg(timeStamp); // timestamp
-        oscMessage.addFloatArg(u); // userID ???
-        oscMessage.addFloatArg(persons[u]->x); // x
-        oscMessage.addFloatArg(persons[u]->y); // y
-        
         for (int i = 0; i < TUBE_NUM; i++){
             float dist = ofDist(allPipes[i]->x,allPipes[i]->y,persons[u]->x,persons[u]->y);
             if(dist<allPipes[i]->radius){
                 
-                persons[u]->x=allPipes[i]->x;//THISSHIT
-                persons[u]->y=allPipes[i]->y;//THISSHIT
+                persons[u]->x=allPipes[i]->x;   //don't move insede a tube
+                persons[u]->y=allPipes[i]->y;   //don't move insede a tube
                 
                 persons[u]->frequency=allPipes[i]->frequency;
                 persons[u]->diameter=allPipes[i]->radius;
@@ -338,7 +343,22 @@ void AppCore::update() {
                 allPipes[i]->isHit=true;
             }
         }
+        //Pack OSC
+        if(persons[u]->pX != persons[u]->x || persons[u]->pY != persons[u]->y){
+            ofxOscMessage oscMessage;
+            oscMessage.setAddress("/messages");
+            oscMessage.addIntArg(u);
+            oscMessage.addStringArg(ofToString(timeStamp));                             // timestamp
+            oscMessage.addFloatArg(ofMap(persons[u]->x,0,ofGetWidth(),0,1));            // x
+            oscMessage.addFloatArg(ofMap(persons[u]->y,0,ofGetHeight(),0,1));           // y
+            oscMessage.addFloatArg(persons[u]->pipeID);                                 // tubeID
+            oscMessage.addFloatArg(persons[u]->frequency);                              // frequency
+            oscMessage.addFloatArg(persons[u]->diameter);
+            b.addMessage(oscMessage);
+            oscMessage.clear();
+        }
         
+        /*
         if(!testmode){
             if(persons[u]->pX != persons[u]->x || persons[u]->pY != persons[u]->y){
                 jsonPeople[u]["channel"] = ofToString(u);
@@ -364,19 +384,28 @@ void AppCore::update() {
             jsonPeople[u]["diameter"] = ofToString(ofRandom(30));
             jsonPeople[u]["height"] = ofToString(ofRandom(500));
         }
-        if (ofGetFrameNum()%5==0 && client.isConnected() && isWritable) {
+         */
+       /* if (ofGetFrameNum()%5==0 && client.isConnected() && isWritable) {
             shouldSend = true;
-            cout << "should send" <<endl;
+            cout << "should send users" <<endl;
             //client.send(ofToString(jsonPeople[u]));
             //cout << ofToString(jsonPeople[u]);
 
         }
-
-        oscMessage.addFloatArg(persons[u]->pipeID); // tubeID
-        oscMessage.addFloatArg(persons[u]->frequency); // frequency
-        b.addMessage(oscMessage);
-        oscMessage.clear();
+        */
     }
+    
+    //Send OSC
+    sender.sendBundle(b);
+    
+    if (client.isConnected() && isWritable) {
+        shouldSend = true;
+        cout << "should send users" <<endl;
+        //client.send(ofToString(jsonPeople[u]));
+        //cout << ofToString(jsonPeople[u]);
+        
+    }
+
     
     if(currentInput==0){
         for (int i = 0; i < PERSON_NUM; i++){
@@ -411,9 +440,6 @@ void AppCore::update() {
         persons[i]->pY = persons[i]->y;
     }
     
-    // sending OSC
-    sender.sendBundle(b);
-    
     // mouse patch
     pd.sendFloat(mousePatch.dollarZeroStr()+"-frequency",mPerson->frequency);
     pd.sendFloat(mousePatch.dollarZeroStr()+"-openClosed",mPerson->openClosed);
@@ -424,8 +450,9 @@ void AppCore::update() {
     pd.sendFloat(mousePatch.dollarZeroStr()+"-y",ofMap(mPerson->x,0,ofGetWidth(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-x",ofMap(mPerson->y,0,ofGetHeight(),1,0));
     pd.sendFloat(mousePatch.dollarZeroStr()+"-selectOutput",outputState);
-    // WEBSOCKET STUFF
     
+    /*
+    // WEBSOCKET STUFF
     if(mPerson->pX != mPerson->x || mPerson->pY != mPerson->y){
         jsonOut["channel"] = "11";
         jsonOut["timestamp"] = ofToString(timeStamp);
@@ -437,15 +464,15 @@ void AppCore::update() {
         jsonOut["diameter"] = ofToString(mPerson->diameter);
         jsonOut["height"] = ofToString(mPerson->height-mPerson->length);
 
-        if (client.isConnected() /*&& ofGetFrameNum()%5==0*/ && isWritable) {
-
+        if (client.isConnected() && isWritable) {
             //client.send(ofToString(jsonOut));
-            shouldSend = true;
-            cout << "should send" <<endl;
+            //shouldSend = true;
+            //cout << "should send mouse" <<endl;
 
         }
         //cout << ofToString(jsonOut);
     }
+    */
     
     mPerson->pX = mPerson->x;
     mPerson->pY = mPerson->y;
@@ -455,8 +482,6 @@ void AppCore::update() {
         allPipes[i]->update();
     }
     */
-    //conTimer++;
-    //cout << conTimer << endl;
 }
 
 //--------------------------------------------------------------
@@ -720,7 +745,8 @@ void AppCore::onOpen( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void AppCore::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
-    startChecking = false;
+    startChecking=false;
+
 }
 
 //--------------------------------------------------------------
@@ -731,14 +757,13 @@ void AppCore::onError( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void AppCore::onIdle( ofxLibwebsockets::Event& args ){
     //cout<<"on idle"<<endl;
-    conTimer = 0;
     isWritable=true;
     if(shouldSend){
         for (int u = 0; u<currentInput; u++) {
-            client.send(ofToString(jsonPeople[u]));
+            //client.send(ofToString(jsonPeople[u]));
         }
-        client.send(ofToString(jsonOut));
-        cout << "sending some shit" <<endl;
+        //client.send(ofToString(jsonOut));
+        cout << "sending something" <<endl;
         isWritable=false;
         shouldSend=false;
     }

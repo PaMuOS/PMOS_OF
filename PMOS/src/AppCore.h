@@ -25,7 +25,7 @@
 #include "ofxJSON.h"
 #include "threadedObject.h"
 #define HOST "localhost"
-#define PORT 12345
+#define PORT 12343
 #define TUBE_NUM 569
 #define PERSON_NUM 10
 
@@ -126,11 +126,10 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         bool tryConnecting;
         bool grafics = true;
         bool fullScreen = true;
-        bool testmode = true;
+        bool testmode = false;
         bool isWritable;
         bool shouldSend;
         bool startChecking = false;
-        int conTimer = 0;
     
         //-------------------------------------------------------
        
