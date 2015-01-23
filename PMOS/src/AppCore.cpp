@@ -19,7 +19,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     
     
     //----------------------------------- WEBSOCKET START -------------------------------------------
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    //ofSetLogLevel(OF_LOG_VERBOSE);
     // basic connection:
     // client.connect("echo.websocket.org");
     // OR optionally use SSL
@@ -29,7 +29,7 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     // loss of internet
     
     // 1 - get default options
-    options = ofxLibwebsockets::defaultClientOptions();
+    //options = ofxLibwebsockets::defaultClientOptions();
     
     // 2 - set basic params
     //options.host = "pmos-website.jit.su";
@@ -48,13 +48,11 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
     // 4 - connect
     //client.connect(options);
     
-    ofSetLogLevel(OF_LOG_ERROR);
+    //ofSetLogLevel(OF_LOG_WARNING);
     
     //client.addListener(this);
     
     //----------------------------------- WEBSOCKET END -------------------------------------------
-    
-	//ofSetLogLevel(OF_LOG_VERBOSE);
     
 	// double check where we are ...
 	cout << ofFilePath::getCurrentWorkingDirectory() << endl;
@@ -201,13 +199,6 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
 
 //--------------------------------------------------------------
 void AppCore::update() {
-       if (tryConnecting && !client.isConnected()) {
-        if(ofGetFrameNum()%300==299){
-            //cout<<"trying to connect..."<<endl;
-            //client.connect(options);
-        }
-    }
-    
     //bServerConnected = threadedObject.bServerConnected;
     
     // Make sure the Kinects are connected
@@ -398,13 +389,13 @@ void AppCore::update() {
     //Send OSC
     sender.sendBundle(b);
     
-    if (client.isConnected() && isWritable) {
-        shouldSend = true;
-        cout << "should send users" <<endl;
+   // if (client.isConnected() && isWritable) {
+   //     shouldSend = true;
+   //     cout << "should send users" <<endl;
         //client.send(ofToString(jsonPeople[u]));
         //cout << ofToString(jsonPeople[u]);
         
-    }
+    //}
 
     
     if(currentInput==0){
@@ -489,8 +480,8 @@ void AppCore::draw() {
     if(!grafics){
         ofBackground(140);
         bothKinects.draw(ofGetWidth()-bothKinects.width/4-10,10,bothKinects.width/4,bothKinects.height/4);
+        
         contourFinder.draw(0, 0, ofGetWidth(), ofGetHeight());
-    
         for (int i = 0; i < TUBE_NUM; i++){
             allPipes[i]->draw();
         }
@@ -515,12 +506,12 @@ void AppCore::draw() {
             ofDrawBitmapStringHighlight(pText, persons[i]->x+5, persons[i]->y-5);
             ofSetColor(255);
         }
-    
+    /*
         if (!client.isConnected()) {
             ofDrawBitmapStringHighlight("not connected (s to stop trying)" + ofToString(tryConnecting), 20, ofGetHeight()-60);
         }else{
             ofDrawBitmapStringHighlight("connected", 20, ofGetHeight()-60);
-        }
+        }*/
     }
     else if(grafics){
         ofBackground(0);
@@ -546,7 +537,10 @@ void AppCore::draw() {
         }
         
     }
-    
+    if(kinectDebug){
+        kinect.drawDepth(10,10, 400, 300);
+        kinect1.drawDepth(410,10, 400, 300);
+    }
 }
 
 //--------------------------------------------------------------
@@ -575,8 +569,21 @@ void AppCore::keyPressed (int key) {
         grafics = !grafics;
         fullScreen = !fullScreen;
         ofSetFullscreen(fullScreen);
+    }else if(key=='t'){
+        ofxOscMessage oscMessage;
+        oscMessage.setAddress("/messages");
+        oscMessage.addIntArg(0);
+        oscMessage.addStringArg(ofToString(timeStamp));             // timestamp
+        oscMessage.addFloatArg(0.0);                                // x
+        oscMessage.addFloatArg(0.0);                                // y
+        oscMessage.addFloatArg(0);                                  // tubeID
+        oscMessage.addFloatArg(0.0);                                // frequency
+        oscMessage.addFloatArg(0);
+        sender.sendMessage(oscMessage);
+        oscMessage.clear();
+    }else if(key=='k'){
+        kinectDebug = !kinectDebug;
     }
-
 }
 
 //--------------------------------------------------------------
@@ -730,7 +737,7 @@ void AppCore::processEvents() {
 		}
 	}
 }
-
+/*
 //--------------------------------------------------------------
 void AppCore::onConnect( ofxLibwebsockets::Event& args ){
     cout<<"on connected"<<endl;
@@ -778,4 +785,5 @@ void AppCore::onMessage( ofxLibwebsockets::Event& args ){
 void AppCore::onBroadcast( ofxLibwebsockets::Event& args ){
     cout<<"got broadcast "<<args.message<<endl;
 }
+ */
 

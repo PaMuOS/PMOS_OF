@@ -21,9 +21,9 @@
 #include "Externals.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
-#include "ofxLibwebsockets.h"
-#include "ofxJSON.h"
-#include "threadedObject.h"
+//#include "ofxLibwebsockets.h"
+//#include "ofxJSON.h"
+//#include "threadedObject.h"
 #define HOST "localhost"
 #define PORT 12343
 #define TUBE_NUM 569
@@ -130,9 +130,10 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
         bool isWritable;
         bool shouldSend;
         bool startChecking = false;
+        bool kinectDebug = false;
     
         //-------------------------------------------------------
-       
+       /*
         ofxLibwebsockets::Client client;
         ofxLibwebsockets::ClientOptions options;
     
@@ -147,10 +148,10 @@ class AppCore : public PdReceiver, public PdMidiReceiver {
     
         ofxJSONElement jsonOut;
         ofxJSONElement jsonPeople[PERSON_NUM];
-    
+    */
         ofTrueTypeFont f;
     bool bServerConnected;
-    ThreadedObject threadedObject;
+    //ThreadedObject threadedObject;
 
     
     private:
