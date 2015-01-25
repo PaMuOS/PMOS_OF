@@ -144,8 +144,10 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         
         // map to the of window size
         float mult = 6;
-        x = (rX * mult + ofGetWidth() / 2) - 50;
-        y = (rY * mult + ofGetHeight() / 2) + 40;
+        float w = 1280;
+        float h = 720;
+        x = (rX * mult + w / 2) - 50;
+        y = (rY * mult + h / 2) + 0;
         
         float radius = XML.getValue("diameter",0.0 ) / 1.8;
         float length = XML.getValue("length",0.0 );
