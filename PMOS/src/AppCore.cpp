@@ -166,8 +166,8 @@ void AppCore::setup(const int numOutChannels, const int numInChannels,
         newXML.addValue("length", length);
         newXML.addValue("height", height);
         newXML.addValue("diameter", radius);
-        newXML.addValue("x", ofMap(x, 0, ofGetWidth(), 0, 1));
-        newXML.addValue("y", ofMap(y, 0, ofGetHeight(), 0, 1));
+        newXML.addValue("x", ofMap(x, 0, w, 0, 1));
+        newXML.addValue("y", ofMap(y, 0, h, 0, 1));
         newXML.addValue("element", element);
         newXML.addValue("oc", open);
         
