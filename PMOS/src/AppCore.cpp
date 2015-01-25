@@ -239,7 +239,7 @@ void AppCore::update() {
         }
         
         bothKinects.threshold(thresholdVal);
-        contourFinder.findContours(bothKinects, 500, 50000, maxInput, false);
+        contourFinder.findContours(bothKinects, 600, 50000, maxInput, false);
         
     }
     
@@ -313,6 +313,7 @@ void AppCore::update() {
         persons[u]->x=blobCenterXmap[u];
         persons[u]->y=blobCenterYmap[u];
         persons[u]->frequency=0;
+        persons[u]->pipeID=0;
         //persons[u]->diameter=0;   //no need to set these to 0
         //persons[u]->height=0;
         //persons[u]->length=0;
