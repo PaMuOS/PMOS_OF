@@ -4,7 +4,7 @@
 # mac apps
 *.app*
 
-#XCode
+XCode
 *.pbxuser
 *.perspective
 *.perspectivev3
@@ -15,6 +15,3 @@
 xcuserdata
 *.xcworkspace
 *.xccheckout
-
-#XML
-*.xml
